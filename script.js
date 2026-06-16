@@ -28,7 +28,7 @@ applyA11y(a11yPrefs);
 // ── EVERYTHING ELSE: wait for DOM ──
 document.addEventListener('DOMContentLoaded', () => {
   // Config
-  const GOOGLE_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbySAU1llS-S2WbfSQkovq4GrrIjvZiA1FW-k-FYbLOBFrECPxRb7oyu3mM7YqrVdW4y/exec';
+  const GOOGLE_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbwL2q43WtuDpT7QlEEWu1EFxUvc1A1npnPbQFpkZ1riMFefVwCxANNLKagMIsqBO3TK/exec';
   const RATE_LIMIT_MS = 60000; // 1 minute
 
   // Best-effort visitor geo data for the IP / City columns in the sheet.
