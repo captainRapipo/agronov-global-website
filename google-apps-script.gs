@@ -20,10 +20,15 @@
 // Leave blank to use the first tab, or set to your tab's exact name.
 var SHEET_NAME = '';
 
-// Column order written to the sheet. Row 1 of the sheet should have these headers:
-// Timestamp | Name | Email | Phone | Brand / Amazon Link | Sales Channels |
-// Product Count | Distribution Method | Manufacturer Rep | Registered Trademark |
-// Primary Goal | IP | City
+// The script writes (and self-heals) row 1 with these exact headers, so you do
+// NOT need to set them by hand.
+var HEADERS = [
+  'Timestamp', 'Name', 'Email', 'Phone', 'Brand / Amazon Link', 'Sales Channels',
+  'Product Count', 'Distribution Method', 'Manufacturer Rep', 'Registered Trademark',
+  'Primary Goal', 'IP', 'City'
+];
+
+// Incoming JSON keys, in the same order as HEADERS (after Timestamp).
 var COLUMNS = [
   'name',
   'email',
@@ -44,6 +49,11 @@ function doPost(e) {
     var ss = SpreadsheetApp.getActiveSpreadsheet();
     var sheet = SHEET_NAME ? ss.getSheetByName(SHEET_NAME) : ss.getSheets()[0];
 
+    // Keep the header row correct and consistent (fixes mismatched/duplicate headers).
+    if (sheet.getRange(1, 1).getValue() !== HEADERS[0]) {
+      sheet.getRange(1, 1, 1, HEADERS.length).setValues([HEADERS]).setFontWeight('bold');
+    }
+
     var data = {};
     if (e && e.postData && e.postData.contents) {
       data = JSON.parse(e.postData.contents);
@@ -55,7 +65,12 @@ function doPost(e) {
     for (var i = 0; i < COLUMNS.length; i++) {
       row.push(data[COLUMNS[i]] != null ? String(data[COLUMNS[i]]) : '');
     }
-    sheet.appendRow(row);
+
+    var r = sheet.getLastRow() + 1;
+    // Force plain-text on every column except the Timestamp so values like
+    // "+1 (702) 727-6966" are stored literally and never parsed as a formula.
+    sheet.getRange(r, 2, 1, row.length - 1).setNumberFormat('@');
+    sheet.getRange(r, 1, 1, row.length).setValues([row]);
 
     return ContentService
       .createTextOutput(JSON.stringify({ result: 'success' }))
