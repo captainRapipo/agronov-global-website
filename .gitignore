@@ -1,0 +1,32 @@
+# Dependencies
+node_modules/
+my-app/node_modules/
+
+# Build output
+my-app/.next/
+my-app/out/
+dist/
+.netlify/
+
+# Logs
+*.log
+npm-debug.log*
+
+# OS / editor junk
+.DS_Store
+Thumbs.db
+.vscode/*
+!.vscode/extensions.json
+
+# Env
+.env
+.env.*
+
+# Separate Next.js project, not part of the static site deploy
+my-app/
+
+# Working notes / planning screenshots (keep out of the public deploy)
+/image.png
+/image-*.png
+/uprage.md
+/update1.md

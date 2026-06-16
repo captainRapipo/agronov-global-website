@@ -1,0 +1,8 @@
+{
+  "name": "agronov-global-website",
+  "version": "1.0.0",
+  "description": "AGRONOV Global contact form with Netlify Functions",
+  "dependencies": {
+    "nodemailer": "^6.9.7"
+  }
+}
