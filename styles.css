@@ -665,6 +665,25 @@ html[data-theme="dark"] .moon-icon {
   transform-origin: left;
 }
 
+/* Blended highlight for light-background section headings:
+   solid filled brand-color text (not hollow) with a soft underline. */
+.section-title .highlight.underline,
+.main-heading .highlight.underline {
+  color: var(--color-primary);
+  -webkit-text-stroke: 0;
+  text-shadow: none;
+}
+
+.section-title .highlight.underline::after,
+.main-heading .highlight.underline::after {
+  height: 3px;
+  bottom: -0.04em;
+  border-radius: 2px;
+  background: var(--color-primary);
+  opacity: 0.35;
+  box-shadow: none;
+}
+
 .hero-subtitle {
   color: #94a3b8;
   font-size: clamp(1.125rem, 2vw, 1.25rem);
@@ -878,6 +897,9 @@ html[data-theme="dark"] .moon-icon {
 
 .section-title {
   font-size: clamp(2.5rem, 4vw, 3.5rem);
+  font-weight: 800;
+  letter-spacing: -0.045em;
+  text-wrap: balance;
   text-align: center;
   margin-bottom: 2rem;
 }
@@ -1065,6 +1087,10 @@ html[data-theme="light"] .partner-card:hover {
 
 .main-heading {
   font-size: clamp(2rem, 3.6vw, 3rem);
+  font-weight: 800;
+  letter-spacing: -0.045em;
+  line-height: 1.12;
+  text-wrap: balance;
   margin-bottom: 1.25rem;
 }
 
