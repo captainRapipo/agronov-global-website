@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en" dir="ltr">
+<html lang="en" dir="ltr" data-theme="dark">
 
 <head>
   <meta charset="UTF-8" />
@@ -11,9 +11,10 @@
     content="default-src 'self'; script-src 'self' 'unsafe-inline' https://cdnjs.cloudflare.com; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src 'self' https://fonts.gstatic.com; img-src 'self' data:; connect-src 'self'; frame-ancestors 'none'; upgrade-insecure-requests;">
 
   <!-- Favicons -->
-  <link rel="icon" type="image/png" sizes="32x32" href="favicon-32x32.png" />
-  <link rel="icon" type="image/png" sizes="16x16" href="favicon-16x16.png" />
-  <link rel="apple-touch-icon" sizes="180x180" href="apple-touch-icon.png" />
+  <link rel="icon" type="image/svg+xml" href="favicon.svg?v=2" />
+  <link rel="icon" type="image/png" sizes="32x32" href="favicon-32x32.png?v=2" />
+  <link rel="icon" type="image/png" sizes="16x16" href="favicon-16x16.png?v=2" />
+  <link rel="apple-touch-icon" sizes="180x180" href="apple-touch-icon.png?v=2" />
 
   <!-- Typography -->
   <link rel="preconnect" href="https://fonts.googleapis.com" />
@@ -23,7 +24,7 @@
     rel="stylesheet" />
 
   <!-- CSS -->
-  <link rel="stylesheet" href="styles.css" />
+  <link rel="stylesheet" href="styles.css?v=13" />
 
   <style>
     /* Page-specific styles for the confirmation view */
@@ -256,16 +257,6 @@
         grid-template-columns: 1fr;
       }
     }
-
-    #confetti-canvas {
-      position: fixed;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 100%;
-      pointer-events: none;
-      z-index: 1000;
-    }
   </style>
 </head>
 
@@ -274,10 +265,8 @@
   <header class="navbar solid" id="navbar">
     <nav class="nav-container" aria-label="Main Navigation">
       <div class="nav-left">
-        <a href="https://www.amazon.com/sp?ie=UTF8&seller=A1PSSP1I3UBATU" target="_blank" rel="noopener noreferrer"
-          class="btn-34 nav-store-btn" aria-label="Visit our Amazon store in a new tab">
-          <span>Visit Our Store</span>
-        </a>
+        <a href="index.html" class="nav-link nav-desktop-only">Home</a>
+        <a href="index.html#services" class="nav-link nav-desktop-only">Services</a>
       </div>
       <div class="nav-center">
         <a href="index.html" class="logo-link" aria-label="AGRONOV Global Home">
@@ -285,8 +274,28 @@
         </a>
       </div>
       <div class="nav-right">
-        <a href="index.html" class="nav-link">Home</a>
-        <a href="index.html#contact" class="nav-link">Contact Us</a>
+        <a href="index.html#contact" class="nav-link nav-desktop-only">Contact Us</a>
+
+        <button class="icon-btn nav-toggle" id="navToggle" aria-label="Open navigation menu"
+          aria-haspopup="true" aria-expanded="false" aria-controls="navLinks">
+          <svg class="nav-toggle-open" aria-hidden="true" width="20" height="20" viewBox="0 0 24 24" fill="none"
+            stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <line x1="3" y1="6" x2="21" y2="6" />
+            <line x1="3" y1="12" x2="21" y2="12" />
+            <line x1="3" y1="18" x2="21" y2="18" />
+          </svg>
+          <svg class="nav-toggle-close" aria-hidden="true" width="20" height="20" viewBox="0 0 24 24" fill="none"
+            stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <line x1="18" y1="6" x2="6" y2="18" />
+            <line x1="6" y1="6" x2="18" y2="18" />
+          </svg>
+        </button>
+
+        <div class="nav-links" id="navLinks">
+          <a href="index.html" class="nav-link">Home</a>
+          <a href="index.html#services" class="nav-link">Services</a>
+          <a href="index.html#contact" class="nav-link">Contact Us</a>
+        </div>
 
         <!-- Accessibility Menu -->
         <div class="a11y-wrapper">
@@ -345,9 +354,6 @@
     </nav>
   </header>
 
-  <!-- Confetti Canvas -->
-  <canvas id="confetti-canvas" aria-hidden="true"></canvas>
-
   <!-- Content -->
   <main id="main-content">
     <section class="thankyou-section" aria-labelledby="thankyou-title">
@@ -390,7 +396,7 @@
         <div class="ty-actions">
           <a href="index.html" class="ty-btn-primary" aria-label="Return to the homepage">Back to Home</a>
           <a href="https://www.amazon.com/sp?ie=UTF8&seller=A1PSSP1I3UBATU" target="_blank" rel="noopener noreferrer"
-            class="ty-btn-secondary" aria-label="Visit our Amazon store in a new tab">Visit Our Store</a>
+            class="ty-btn-secondary" aria-label="Explore our live storefront on Amazon in a new tab">Explore Our Storefront</a>
         </div>
 
         <p class="ty-note">
@@ -416,97 +422,10 @@
   </footer>
 
   <!-- Scripts -->
-  <script src="script.js" defer></script>
+  <script src="script.js?v=14" defer></script>
   <script>
-    // Scroll to top instantly on load
+    // Land at the top of the confirmation page
     window.scrollTo(0, 0);
-
-    // Confetti Effect
-    document.addEventListener('DOMContentLoaded', () => {
-      const canvas = document.getElementById("confetti-canvas");
-      const ctx = canvas.getContext("2d");
-
-      // Use a safe palette, preferring the root variable if possible
-      const rootStyle = getComputedStyle(document.documentElement);
-      const primaryColor = rootStyle.getPropertyValue('--accent-color').trim() || "#FF9900";
-
-      const COLORS = [
-        primaryColor,
-        "#FFB84D",
-        "#FF8800",
-        "#FFA500",
-        "rgba(255, 153, 0, 0.45)",
-        "#ffffff"
-      ];
-
-      function resize() {
-        canvas.width = window.innerWidth;
-        canvas.height = window.innerHeight;
-      }
-      resize();
-      window.addEventListener("resize", resize);
-
-      class Piece {
-        constructor(i) {
-          this.reset(true, i * 18);
-        }
-        reset(initial, delay) {
-          this.delay = delay || 0;
-          this.x = Math.random() * canvas.width;
-          this.y = initial ? Math.random() * canvas.height * 0.5 - canvas.height * 0.5 : -16;
-          this.w = Math.random() * 9 + 4;
-          this.h = Math.random() * 5 + 3;
-          this.color = COLORS[Math.floor(Math.random() * COLORS.length)];
-          this.speed = Math.random() * 2.4 + 1.4;
-          this.angle = Math.random() * 360;
-          this.spin = Math.random() * 6 - 3;
-          this.drift = Math.random() * 1.2 - 0.6;
-          this.born = false;
-        }
-        update(t) {
-          if (t < this.delay) return;
-          this.born = true;
-          this.y += this.speed;
-          this.x += this.drift;
-          this.angle += this.spin;
-          if (this.y > canvas.height + 20) this.reset(false, 0);
-        }
-        draw() {
-          if (!this.born) return;
-          ctx.save();
-          ctx.translate(this.x + this.w / 2, this.y + this.h / 2);
-          ctx.rotate((this.angle * Math.PI) / 180);
-          ctx.fillStyle = this.color;
-          ctx.beginPath();
-          // A bit rounder for cleaner look
-          ctx.roundRect(-this.w / 2, -this.h / 2, this.w, this.h, 2);
-          ctx.fill();
-          ctx.restore();
-        }
-      }
-
-      const pieces = Array.from({ length: 160 }, (_, i) => new Piece(i));
-      let start = null;
-      let reqId;
-
-      function loop(ts) {
-        if (!start) start = ts;
-        const elapsed = ts - start;
-        ctx.clearRect(0, 0, canvas.width, canvas.height);
-        pieces.forEach(p => {
-          p.update(elapsed);
-          p.draw();
-        });
-        if (elapsed < 7500) {
-          reqId = requestAnimationFrame(loop);
-        } else {
-          ctx.clearRect(0, 0, canvas.width, canvas.height);
-          cancelAnimationFrame(reqId);
-        }
-      }
-
-      requestAnimationFrame(loop);
-    });
   </script>
 </body>
 

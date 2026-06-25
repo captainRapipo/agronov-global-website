@@ -5,7 +5,10 @@
 
 // ── THEME TOGGLE (runs immediately before DOM load to prevent flash) ──
 const html = document.documentElement;
-const currentTheme = localStorage.getItem('theme') || 'light';
+// An explicit user choice (localStorage) always wins. Otherwise fall back to the
+// page's own default declared via <html data-theme="...">, then to light.
+const pageDefaultTheme = html.getAttribute('data-theme') || 'light';
+const currentTheme = localStorage.getItem('theme') || pageDefaultTheme;
 html.setAttribute('data-theme', currentTheme);
 
 // ── ACCESSIBILITY PREFERENCES (apply early to prevent flash) ──
@@ -159,6 +162,43 @@ document.addEventListener('DOMContentLoaded', () => {
     window.addEventListener('scroll', onScroll, { passive: true });
   }
 
+  // ── Mobile Nav Toggle ──
+  const navToggle = document.getElementById('navToggle');
+  const navLinks = document.getElementById('navLinks');
+  if (navToggle && navLinks) {
+    const closeNav = () => {
+      navLinks.classList.remove('open');
+      navToggle.setAttribute('aria-expanded', 'false');
+      navToggle.setAttribute('aria-label', 'Open navigation menu');
+    };
+    const openNav = () => {
+      navLinks.classList.add('open');
+      navToggle.setAttribute('aria-expanded', 'true');
+      navToggle.setAttribute('aria-label', 'Close navigation menu');
+    };
+
+    navToggle.addEventListener('click', (e) => {
+      e.stopPropagation();
+      navLinks.classList.contains('open') ? closeNav() : openNav();
+    });
+
+    // Close after choosing a destination
+    navLinks.querySelectorAll('.nav-link').forEach(link => {
+      link.addEventListener('click', closeNav);
+    });
+
+    // Close on outside click / Escape
+    document.addEventListener('click', (e) => {
+      if (navLinks.classList.contains('open') &&
+          !navLinks.contains(e.target) && !navToggle.contains(e.target)) {
+        closeNav();
+      }
+    });
+    document.addEventListener('keydown', (e) => {
+      if (e.key === 'Escape') closeNav();
+    });
+  }
+
   // ── Smooth Scroll for Anchor Links ──
   const smoothScrollLinks = document.querySelectorAll('a[href^="#"]');
   smoothScrollLinks.forEach(link => {
@@ -187,7 +227,7 @@ document.addEventListener('DOMContentLoaded', () => {
   });
 
   // ── Fade-in Elements Observer ──
-  const triggerFadeElements = document.querySelectorAll('.partner-card, .contact-info-bar, .hero-eyebrow, .step-item');
+  const triggerFadeElements = document.querySelectorAll('.partner-card, .svc-card, .contact-info-bar, .hero-eyebrow, .step-item');
   triggerFadeElements.forEach(el => el.classList.add('fade-in-element'));
 
   if ('IntersectionObserver' in window) {
@@ -208,6 +248,134 @@ document.addEventListener('DOMContentLoaded', () => {
   } else {
     // Fallback for older browsers
     document.querySelectorAll('.fade-in-element').forEach(el => el.classList.add('fade-in-visible'));
+  }
+
+  // ── Dashboard Count-Up Animation ──
+  const dashboard = document.querySelector('[data-dashboard]');
+  if (dashboard) {
+    const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches
+      || document.documentElement.classList.contains('a11y-motion');
+
+    const formatValue = (val, decimals, prefix, suffix) => {
+      const neg = val < 0;
+      const num = Math.abs(val).toLocaleString('en-US', {
+        minimumFractionDigits: decimals,
+        maximumFractionDigits: decimals
+      });
+      return `${neg ? '-' : ''}${prefix}${num}${suffix}`;
+    };
+
+    // Matrix-style scramble: digits flicker through random values and lock in
+    // left-to-right until the real figure is revealed. A run token lets a brand
+    // switch supersede any animation still in flight.
+    let runToken = 0;
+    const animateCount = (el, delay, token) => {
+      const target = parseFloat(el.getAttribute('data-count')) || 0;
+      const decimals = parseInt(el.getAttribute('data-decimals'), 10) || 0;
+      const prefix = el.getAttribute('data-prefix') || '';
+      const suffix = el.getAttribute('data-suffix') || '';
+      const finalStr = formatValue(target, decimals, prefix, suffix);
+
+      if (reduceMotion) {
+        el.textContent = finalStr;
+        return;
+      }
+
+      const chars = finalStr.split('');
+      const digitPositions = [];
+      chars.forEach((c, i) => { if (c >= '0' && c <= '9') digitPositions.push(i); });
+      const totalDigits = digitPositions.length;
+      if (totalDigits === 0) { el.textContent = finalStr; return; }
+
+      const duration = 1050;
+      el.classList.add('dash-scrambling');
+      let startTime = null;
+      let lastFlip = 0;
+
+      const render = (locked) => {
+        const out = chars.slice();
+        for (let d = locked; d < totalDigits; d++) {
+          out[digitPositions[d]] = String((Math.random() * 10) | 0);
+        }
+        el.textContent = out.join('');
+      };
+
+      const step = (ts) => {
+        if (token !== runToken) { el.classList.remove('dash-scrambling'); return; }
+        if (startTime === null) startTime = ts;
+        const elapsed = ts - startTime - delay;
+        if (elapsed < 0) { window.requestAnimationFrame(step); return; }
+        const progress = Math.min(elapsed / duration, 1);
+        const locked = Math.floor(progress * totalDigits);
+        if (ts - lastFlip > 45 || progress >= 1) {
+          render(locked);
+          lastFlip = ts;
+        }
+        if (progress < 1) {
+          window.requestAnimationFrame(step);
+        } else {
+          el.textContent = finalStr;
+          el.classList.remove('dash-scrambling');
+        }
+      };
+      window.requestAnimationFrame(step);
+    };
+
+    const valEls = dashboard.querySelectorAll('[data-key]');
+    const periodEl = dashboard.querySelector('[data-period]');
+
+    const runCounts = () => {
+      // Cascade the reveal down the ledger for a decoding feel
+      const token = ++runToken;
+      dashboard.querySelectorAll('[data-count]').forEach((el, i) => animateCount(el, i * 55, token));
+    };
+
+    // ── Per-brand datasets (figures lightly adjusted for confidentiality) ──
+    const BRANDS = {
+      b1: { period: 'Jul 1 – Sep 30, 2025', values: { sales: 990717.38, units: 1289, refunds: 39, promo: -382.07, advertising: -78480.02, shipping: -146521.54, refundcost: -21798.32, amazonfees: -155232.74, cogs: -378208.68, gross: 210094.01, indirect: 0, net: 210094.01, payout: 733130.87, acos: 7.52, refundpct: 2.67, sellable: 29.83, margin: 20.15, roi: 52.77, subs: 0, sessions: 36235, usp: 3.43 } },
+      b2: { period: 'Apr 1 – Jun 30, 2025', values: { sales: 346674.29, units: 4820, refunds: 334, promo: -1851.17, advertising: -1767.38, shipping: -7999.00, refundcost: -10849.81, amazonfees: -144058.19, cogs: -105339.84, gross: 74808.90, indirect: 0, net: 74808.90, payout: 183737.37, acos: 0.48, refundpct: 5.89, sellable: 31.45, margin: 20.50, roi: 67.45, subs: 0, sessions: 22971, usp: 3.85 } },
+      b3: { period: 'Jan 1 – Mar 31, 2026', values: { sales: 75658.19, units: 800, refunds: 33, promo: 0, advertising: -9671.38, shipping: 0, refundcost: -1655.47, amazonfees: -15599.81, cogs: -40143.53, gross: 8588.00, indirect: 228.00, net: 8360.00, payout: 47664.64, acos: 12.14, refundpct: 3.37, sellable: 34.96, margin: 10.50, roi: 19.79, subs: 0, sessions: 10678, usp: 6.94 } }
+    };
+
+    const loadBrand = (key) => {
+      const brand = BRANDS[key];
+      if (!brand) return;
+      if (periodEl) periodEl.textContent = brand.period;
+      valEls.forEach(el => {
+        const v = brand.values[el.getAttribute('data-key')];
+        if (v === undefined) return;
+        el.setAttribute('data-count', v);
+        if (!el.classList.contains('accent')) el.classList.toggle('neg', v < 0);
+      });
+      runCounts();
+    };
+
+    dashboard.querySelectorAll('.dash-tab').forEach(tab => {
+      tab.addEventListener('click', () => {
+        if (tab.classList.contains('is-active')) return;
+        dashboard.querySelectorAll('.dash-tab').forEach(t => {
+          t.classList.remove('is-active');
+          t.setAttribute('aria-selected', 'false');
+        });
+        tab.classList.add('is-active');
+        tab.setAttribute('aria-selected', 'true');
+        loadBrand(tab.getAttribute('data-brand'));
+      });
+    });
+
+    if ('IntersectionObserver' in window) {
+      const countObserver = new IntersectionObserver((entries, observer) => {
+        entries.forEach(entry => {
+          if (entry.isIntersecting) {
+            runCounts();
+            observer.unobserve(entry.target);
+          }
+        });
+      }, { threshold: 0.35 });
+      countObserver.observe(dashboard);
+    } else {
+      runCounts();
+    }
   }
 
   // ── Form Handling & Validation ──
@@ -262,6 +430,67 @@ document.addEventListener('DOMContentLoaded', () => {
       }
       return isValid;
     };
+
+    // ── Multi-step Navigation (2-step progressive form) ──
+    const formStep1 = contactForm.querySelector('.form-step[data-step="1"]');
+    const formStep2 = contactForm.querySelector('.form-step[data-step="2"]');
+    const formNext = document.getElementById('formNext');
+    const formBack = document.getElementById('formBack');
+    const progressFill = document.getElementById('formProgressFill');
+    const progressSteps = contactForm.querySelectorAll('.form-progress-step');
+
+    const emailRe = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    const urlRe = /^(https?:\/\/)?([\da-z\.-]+)\.([a-z\.]{2,6})([\/\w \.-]*)*\/?$/;
+
+    const setStep = (n) => {
+      if (formStep1) formStep1.hidden = n !== 1;
+      if (formStep2) formStep2.hidden = n !== 2;
+      if (progressFill) progressFill.style.width = n === 2 ? '100%' : '50%';
+      progressSteps.forEach(s => {
+        s.classList.toggle('is-active', parseInt(s.getAttribute('data-progress'), 10) <= n);
+      });
+    };
+
+    const stepOf = (el) => {
+      const step = el && el.closest ? el.closest('.form-step') : null;
+      return step ? parseInt(step.getAttribute('data-step'), 10) : 1;
+    };
+
+    if (formStep1 && formStep2) setStep(1);
+
+    if (formNext) {
+      formNext.addEventListener('click', () => {
+        document.querySelectorAll('.form-step[data-step="1"] .has-error')
+          .forEach(el => el.classList.remove('has-error'));
+        let ok = true;
+        const n = document.getElementById('name');
+        const em = document.getElementById('email');
+        const bl = document.getElementById('brandLink');
+        if (!validateField(n, v => v.trim().length > 1)) ok = false;
+        if (!validateField(em, v => emailRe.test(v))) ok = false;
+        if (!validateField(bl, v => urlRe.test(v))) ok = false;
+        if (!ok) {
+          const firstErr = document.querySelector('.form-step[data-step="1"] .has-error .form-input');
+          if (firstErr) firstErr.focus();
+          return;
+        }
+        setStep(2);
+        const phone = document.getElementById('phone');
+        if (phone) phone.focus({ preventScroll: true });
+        if (formStep2 && formStep2.scrollIntoView) {
+          formStep2.scrollIntoView({ behavior: 'smooth', block: 'center' });
+        }
+      });
+    }
+
+    if (formBack) {
+      formBack.addEventListener('click', () => {
+        setStep(1);
+        if (formStep1 && formStep1.scrollIntoView) {
+          formStep1.scrollIntoView({ behavior: 'smooth', block: 'center' });
+        }
+      });
+    }
 
     // Form Submit Handler
     contactForm.addEventListener('submit', async (e) => {
@@ -320,8 +549,10 @@ document.addEventListener('DOMContentLoaded', () => {
         isValid = false;
       }
 
-      // Focus first error if invalid
+      // Focus first error if invalid — reveal the step it lives on first
       if (!isValid) {
+        const firstErrorGroup = document.querySelector('.has-error');
+        if (firstErrorGroup) setStep(stepOf(firstErrorGroup));
         const firstError = document.querySelector('.has-error .form-input, .has-error .form-textarea');
         if (firstError) firstError.focus();
         return;

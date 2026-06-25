@@ -23,12 +23,13 @@
 
   <!-- Content Security Policy (CSP) -->
   <meta http-equiv="Content-Security-Policy"
-    content="default-src 'self'; script-src 'self' 'unsafe-inline' https://cdnjs.cloudflare.com https://script.google.com; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src 'self' https://fonts.gstatic.com; img-src 'self' data:; connect-src 'self' https://script.google.com https://script.googleusercontent.com https://ipapi.co; frame-src 'self'; form-action 'self'; frame-ancestors 'none'; upgrade-insecure-requests;">
+    content="default-src 'self'; script-src 'self' 'unsafe-inline' https://cdnjs.cloudflare.com https://script.google.com; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src 'self' https://fonts.gstatic.com; img-src 'self' data:; media-src 'self'; connect-src 'self' https://script.google.com https://script.googleusercontent.com https://ipapi.co; frame-src 'self'; form-action 'self'; frame-ancestors 'none'; upgrade-insecure-requests;">
 
   <!-- Favicons -->
-  <link rel="icon" type="image/png" sizes="32x32" href="favicon-32x32.png" />
-  <link rel="icon" type="image/png" sizes="16x16" href="favicon-16x16.png" />
-  <link rel="apple-touch-icon" sizes="180x180" href="apple-touch-icon.png" />
+  <link rel="icon" type="image/svg+xml" href="favicon.svg?v=2" />
+  <link rel="icon" type="image/png" sizes="32x32" href="favicon-32x32.png?v=2" />
+  <link rel="icon" type="image/png" sizes="16x16" href="favicon-16x16.png?v=2" />
+  <link rel="apple-touch-icon" sizes="180x180" href="apple-touch-icon.png?v=2" />
 
   <!-- Typography -->
   <link rel="preconnect" href="https://fonts.googleapis.com" />
@@ -38,7 +39,7 @@
     rel="stylesheet" />
 
   <!-- CSS -->
-  <link rel="stylesheet" href="styles.css" />
+  <link rel="stylesheet" href="styles.css?v=13" />
 
   <!-- External Scripts (Deferred for Performance) -->
   <script src="https://cdnjs.cloudflare.com/ajax/libs/lottie-web/5.12.2/lottie.min.js" defer></script>
@@ -52,10 +53,8 @@
   <header class="navbar" id="navbar">
     <nav class="nav-container" aria-label="Main Navigation">
       <div class="nav-left">
-        <a href="https://www.amazon.com/sp?ie=UTF8&seller=A1PSSP1I3UBATU" target="_blank" rel="noopener noreferrer"
-          class="btn-34 nav-store-btn" aria-label="Visit our Amazon store in a new tab">
-          <span>Visit Our Store</span>
-        </a>
+        <a href="#home" class="nav-link nav-desktop-only">Home</a>
+        <a href="#services" class="nav-link nav-desktop-only">Services</a>
       </div>
       <div class="nav-center">
         <a href="#home" class="logo-link" aria-label="AGRONOV Global Home">
@@ -63,8 +62,27 @@
         </a>
       </div>
       <div class="nav-right">
-        <a href="#home" class="nav-link">Home</a>
-        <a href="#contact" class="nav-link">Contact Us</a>
+        <a href="#contact" class="nav-link nav-desktop-only">Contact Us</a>
+        <div class="nav-links" id="navLinks">
+          <a href="#home" class="nav-link">Home</a>
+          <a href="#services" class="nav-link">Services</a>
+          <a href="#contact" class="nav-link">Contact Us</a>
+        </div>
+
+        <button class="icon-btn nav-toggle" id="navToggle" aria-label="Open navigation menu"
+          aria-haspopup="true" aria-expanded="false" aria-controls="navLinks">
+          <svg class="nav-toggle-open" aria-hidden="true" width="20" height="20" viewBox="0 0 24 24" fill="none"
+            stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <line x1="3" y1="6" x2="21" y2="6" />
+            <line x1="3" y1="12" x2="21" y2="12" />
+            <line x1="3" y1="18" x2="21" y2="18" />
+          </svg>
+          <svg class="nav-toggle-close" aria-hidden="true" width="20" height="20" viewBox="0 0 24 24" fill="none"
+            stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <line x1="18" y1="6" x2="6" y2="18" />
+            <line x1="6" y1="6" x2="18" y2="18" />
+          </svg>
+        </button>
 
         <!-- Accessibility Menu -->
         <div class="a11y-wrapper">
@@ -126,23 +144,26 @@
   <main id="main-content">
     <!-- Hero Section -->
     <section id="home" class="hero-section" aria-labelledby="hero-title">
-      <div class="hero-background" aria-hidden="true"></div>
+      <video class="hero-background hero-video" autoplay muted loop playsinline preload="auto"
+        poster="images/hero-bg.png" aria-hidden="true">
+        <source src="videos/hero.mp4" type="video/mp4" />
+      </video>
       <div class="hero-overlay" aria-hidden="true"></div>
       <div class="hero-content">
         <p class="hero-eyebrow" aria-label="Partner Category">Amazon Brand Partners</p>
         <h1 id="hero-title" class="hero-title">
-          We help businesses<br />
+          Your brand on Amazon,<br />
+          grown and protected by a<br />
           <span class="highlight-wrapper">
-            <span class="highlight underline">scale globally</span>
-          </span><br />
-          through Amazon.
+            <span class="highlight underline">single trusted partner</span>
+          </span>.
         </h1>
         <p class="hero-subtitle">
-          Strategic FBA partnerships that protect your brand, stabilize pricing,
-          and drive long-term revenue growth.
+          We buy your products and sell them through one authorized
+          storefront&mdash;protecting your price, reputation, and market.
         </p>
         <div class="hero-cta">
-          <a href="#contact" class="btn-hero primary" aria-label="Apply for a partnership">Apply Now</a>
+          <a href="#contact" class="btn-hero primary" aria-label="Request your free brand blueprint">Request Brand Blueprint</a>
           <a href="#about" class="btn-hero secondary" aria-label="Learn how our partnership works">How It Works</a>
         </div>
         <div class="hero-stats" aria-label="Key Performance Indicators">
@@ -183,13 +204,313 @@
         </div>
         <h2 id="about-title" class="section-title">
           <span class="highlight-wrapper">
-            <span class="highlight underline">Our Partnership Model</span>
+            <span class="highlight underline">Built on Partnership, Not Volume</span>
           </span>
         </h2>
         <p class="section-text">
-          Your brand has the vision; we have the machine. We partner with
-          established sellers to unlock untapped revenue, stabilize pricing, and
-          execute a world-class Amazon strategy that wins&mdash;long term.
+          We handle Amazon so you can focus on your brand. No swarm of resellers
+          crushing your price&mdash;just one authorized storefront built for
+          control, consistency, and lasting growth.
+        </p>
+      </div>
+    </section>
+
+    <!-- Services Section -->
+    <section id="services" class="about-section" aria-labelledby="services-title">
+      <div class="about-content">
+        <div class="section-decorator" aria-hidden="true">
+          <div class="decorator-line"></div>
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+            class="decorator-icon" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M12 2 2 7l10 5 10-5-10-5z"></path>
+            <path d="m2 17 10 5 10-5"></path>
+            <path d="m2 12 10 5 10-5"></path>
+          </svg>
+          <div class="decorator-line"></div>
+        </div>
+        <h2 id="services-title" class="section-title">
+          <span class="highlight-wrapper">
+            <span class="highlight underline">What We Do</span>
+          </span>
+        </h2>
+        <p class="section-text">
+          One authorized partner, end to end&mdash;buying, growing, protecting,
+          and reporting on your brand.
+        </p>
+      </div>
+
+      <div class="svc-grid">
+        <article class="svc-card">
+          <div class="svc-head">
+            <div class="svc-headtext">
+              <span class="svc-num">01</span>
+              <h3 class="svc-title">Value-Added Seller</h3>
+            </div>
+            <span class="svc-icon" aria-hidden="true">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"
+                stroke-linecap="round" stroke-linejoin="round">
+                <path d="M6 2 3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z"></path>
+                <path d="M3 6h18"></path>
+                <path d="M16 10a4 4 0 0 1-8 0"></path>
+              </svg>
+            </span>
+          </div>
+          <p class="svc-desc">
+            We <strong>buy your inventory outright</strong> and sell it on
+            Amazon&mdash;growing your brand as we grow ours.
+          </p>
+          <div class="svc-foot">
+            <span class="svc-check" aria-hidden="true">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"
+                stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"></polyline></svg>
+            </span>
+            We purchase upfront&mdash;zero cost to you
+          </div>
+        </article>
+
+        <article class="svc-card">
+          <div class="svc-head">
+            <div class="svc-headtext">
+              <span class="svc-num">02</span>
+              <h3 class="svc-title">Inventory &amp; Marketing</h3>
+            </div>
+            <span class="svc-icon" aria-hidden="true">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"
+                stroke-linecap="round" stroke-linejoin="round">
+                <path d="M3 11v3a1 1 0 0 0 1 1h2l3.5 3.5a1 1 0 0 0 1.7-.7V8.2a1 1 0 0 0-1.7-.7L6 11H4a1 1 0 0 0-1 1z"></path>
+                <path d="M15.5 8.5a5 5 0 0 1 0 7"></path>
+                <path d="M18.5 5.5a9 9 0 0 1 0 13"></path>
+              </svg>
+            </span>
+          </div>
+          <p class="svc-desc">
+            We don't just list products&mdash;we <strong>invest our own
+            capital</strong> in marketing and inventory. Our growth is tied to
+            yours.
+          </p>
+          <div class="svc-foot">
+            <span class="svc-check" aria-hidden="true">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"
+                stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"></polyline></svg>
+            </span>
+            We fund the ads and the inventory
+          </div>
+        </article>
+
+        <article class="svc-card">
+          <div class="svc-head">
+            <div class="svc-headtext">
+              <span class="svc-num">03</span>
+              <h3 class="svc-title">Risk &amp; Brand Protection</h3>
+            </div>
+            <span class="svc-icon" aria-hidden="true">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"
+                stroke-linecap="round" stroke-linejoin="round">
+                <path d="M12 2 4 5v6c0 5 3.4 9.4 8 11 4.6-1.6 8-6 8-11V5l-8-3z"></path>
+                <path d="m9 12 2 2 4-4"></path>
+              </svg>
+            </span>
+          </div>
+          <p class="svc-desc">
+            Price erosion, rogue sellers, listing hijacks&mdash;as your
+            <strong>single authorized seller</strong>, we shut them down and keep
+            your brand safe.
+          </p>
+          <div class="svc-foot">
+            <span class="svc-check" aria-hidden="true">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"
+                stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"></polyline></svg>
+            </span>
+            MAP pricing actively enforced
+          </div>
+        </article>
+
+        <article class="svc-card">
+          <div class="svc-head">
+            <div class="svc-headtext">
+              <span class="svc-num">04</span>
+              <h3 class="svc-title">Reporting &amp; Transparency</h3>
+            </div>
+            <span class="svc-icon" aria-hidden="true">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"
+                stroke-linecap="round" stroke-linejoin="round">
+                <path d="M3 3v18h18"></path>
+                <path d="M7 14l3-4 3 3 4-6"></path>
+              </svg>
+            </span>
+          </div>
+          <p class="svc-desc">
+            <strong>Full visibility</strong> into your performance&mdash;regular
+            reviews, clear reporting, every step.
+          </p>
+          <div class="svc-foot">
+            <span class="svc-check" aria-hidden="true">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"
+                stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"></polyline></svg>
+            </span>
+            Reviewed with you, every month
+          </div>
+        </article>
+      </div>
+    </section>
+
+    <!-- Real-Time Dashboard Section -->
+    <section id="dashboard" class="about-section dashboard-section" aria-labelledby="dashboard-title">
+      <div class="dashboard-wrap">
+        <div class="dashboard-intro">
+          <p class="dash-eyebrow">Always-On Reporting</p>
+          <h2 id="dashboard-title" class="dash-title">
+            <span class="highlight-wrapper">
+              <span class="highlight underline">Real-Time</span>
+            </span> visibility into every dollar.
+          </h2>
+          <p class="dash-text">
+            You're never in the dark. We track every sale, unit, and dollar as
+            it happens&mdash;so your brand's performance is always one glance
+            away.
+          </p>
+          <ul class="dash-points">
+            <li>Live sales &amp; profit tracking</li>
+            <li>Refund &amp; inventory alerts</li>
+            <li>On-demand reviews, full transparency</li>
+          </ul>
+
+          <a href="https://www.amazon.com/sp?ie=UTF8&seller=A1PSSP1I3UBATU" target="_blank" rel="noopener noreferrer"
+            class="storefront-btn" aria-label="Explore our live storefront on Amazon (opens in a new tab)">
+            Explore Our Storefront
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+              stroke-linejoin="round" aria-hidden="true">
+              <path d="M7 17 17 7"></path>
+              <path d="M7 7h10v10"></path>
+            </svg>
+          </a>
+          <p class="storefront-note">See exactly how we represent our partners live on Amazon.</p>
+        </div>
+
+        <div class="dashboard-panel" data-dashboard>
+          <div class="dash-tabs" role="tablist" aria-label="Select a managed brand">
+            <button type="button" class="dash-tab is-active" data-brand="b1" role="tab" aria-selected="true">Brand 1</button>
+            <button type="button" class="dash-tab" data-brand="b2" role="tab" aria-selected="false">Brand 2</button>
+            <button type="button" class="dash-tab" data-brand="b3" role="tab" aria-selected="false">Brand 3</button>
+          </div>
+
+          <div class="dash-panel-head">
+            <div class="dash-period">
+              <span class="dash-period-label">Brand Performance</span>
+              <span class="dash-period-range" data-period>Jul 1 &ndash; Sep 30, 2025</span>
+            </div>
+            <span class="dash-live"><span class="dash-live-dot"></span>LIVE</span>
+          </div>
+
+          <div class="dash-ledger">
+            <div class="dash-row">
+              <span class="dash-row-label">Sales</span>
+              <span class="dash-row-val" data-key="sales" data-count="990717.38" data-prefix="$" data-decimals="2">$0</span>
+            </div>
+            <div class="dash-row">
+              <span class="dash-row-label">Units</span>
+              <span class="dash-row-val" data-key="units" data-count="1289">0</span>
+            </div>
+            <div class="dash-row">
+              <span class="dash-row-label">Refunds</span>
+              <span class="dash-row-val" data-key="refunds" data-count="39">0</span>
+            </div>
+            <div class="dash-row">
+              <span class="dash-row-label">Promo</span>
+              <span class="dash-row-val neg" data-key="promo" data-count="-382.07" data-prefix="$" data-decimals="2">$0</span>
+            </div>
+            <div class="dash-row">
+              <span class="dash-row-label">Advertising cost</span>
+              <span class="dash-row-val neg" data-key="advertising" data-count="-78480.02" data-prefix="$" data-decimals="2">$0</span>
+            </div>
+            <div class="dash-row">
+              <span class="dash-row-label">Shipping costs</span>
+              <span class="dash-row-val neg" data-key="shipping" data-count="-146521.54" data-prefix="$" data-decimals="2">$0</span>
+            </div>
+            <div class="dash-row">
+              <span class="dash-row-label">Refund cost</span>
+              <span class="dash-row-val neg" data-key="refundcost" data-count="-21798.32" data-prefix="$" data-decimals="2">$0</span>
+            </div>
+            <div class="dash-row">
+              <span class="dash-row-label">Amazon fees</span>
+              <span class="dash-row-val neg" data-key="amazonfees" data-count="-155232.74" data-prefix="$" data-decimals="2">$0</span>
+            </div>
+            <div class="dash-row">
+              <span class="dash-row-label">Cost of goods</span>
+              <span class="dash-row-val neg" data-key="cogs" data-count="-378208.68" data-prefix="$" data-decimals="2">$0</span>
+            </div>
+            <div class="dash-row strong">
+              <span class="dash-row-label">Gross profit</span>
+              <span class="dash-row-val" data-key="gross" data-count="210094.01" data-prefix="$" data-decimals="2">$0</span>
+            </div>
+            <div class="dash-row">
+              <span class="dash-row-label">Indirect expenses</span>
+              <span class="dash-row-val" data-key="indirect" data-count="0" data-prefix="$" data-decimals="2">$0</span>
+            </div>
+            <div class="dash-row strong highlight">
+              <span class="dash-row-label">Net profit</span>
+              <span class="dash-row-val accent" data-key="net" data-count="210094.01" data-prefix="$" data-decimals="2">$0</span>
+            </div>
+            <div class="dash-row">
+              <span class="dash-row-label">Estimated payout</span>
+              <span class="dash-row-val" data-key="payout" data-count="733130.87" data-prefix="$" data-decimals="2">$0</span>
+            </div>
+            <div class="dash-row">
+              <span class="dash-row-label">Real ACOS</span>
+              <span class="dash-row-val" data-key="acos" data-count="7.52" data-suffix="%" data-decimals="2">0%</span>
+            </div>
+            <div class="dash-row">
+              <span class="dash-row-label">% Refunds</span>
+              <span class="dash-row-val" data-key="refundpct" data-count="2.67" data-suffix="%" data-decimals="2">0%</span>
+            </div>
+            <div class="dash-row">
+              <span class="dash-row-label">Sellable returns</span>
+              <span class="dash-row-val" data-key="sellable" data-count="29.83" data-suffix="%" data-decimals="2">0%</span>
+            </div>
+            <div class="dash-row strong">
+              <span class="dash-row-label">Margin</span>
+              <span class="dash-row-val" data-key="margin" data-count="20.15" data-suffix="%" data-decimals="2">0%</span>
+            </div>
+            <div class="dash-row strong">
+              <span class="dash-row-label">ROI</span>
+              <span class="dash-row-val accent" data-key="roi" data-count="52.77" data-suffix="%" data-decimals="2">0%</span>
+            </div>
+            <div class="dash-row">
+              <span class="dash-row-label">Active subscriptions (SnS)</span>
+              <span class="dash-row-val" data-key="subs" data-count="0">0</span>
+            </div>
+            <div class="dash-row">
+              <span class="dash-row-label">Sessions</span>
+              <span class="dash-row-val" data-key="sessions" data-count="36235">0</span>
+            </div>
+            <div class="dash-row">
+              <span class="dash-row-label">Unit session %</span>
+              <span class="dash-row-val" data-key="usp" data-count="3.43" data-suffix="%" data-decimals="2">0%</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Why AGRONOV Section -->
+    <section id="why" class="about-section" aria-labelledby="why-title">
+      <div class="about-content">
+        <div class="section-decorator" aria-hidden="true">
+          <div class="decorator-line"></div>
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+            class="decorator-icon" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M12 2 4 5v6c0 5 3.4 9.4 8 11 4.6-1.6 8-6 8-11V5l-8-3z"></path>
+          </svg>
+          <div class="decorator-line"></div>
+        </div>
+        <h2 id="why-title" class="section-title">
+          <span class="highlight-wrapper">
+            <span class="highlight underline">A Long-Term Commitment</span>
+          </span>
+        </h2>
+        <p class="section-text">
+          Others undercut your price for a quick win. We do the
+          opposite&mdash;one storefront, stable pricing, built for the long run.
         </p>
       </div>
     </section>
@@ -214,28 +535,67 @@
             Through Direct, Strategic Partnerships
           </h2>
           <p class="main-description">
-            We protect and scale established brands through direct FBA
-            excellence. Give us the details of your current presence, and let's
-            discuss a strategy for long-term growth.
+            We scale established brands as their single Amazon seller. Tell us
+            about your presence&mdash;we'll map the path to long-term growth.
           </p>
         </div>
 
-        <div class="partnership-cards">
-          <article class="partner-card">
-            <span class="partner-badge" aria-hidden="true">CORE PARTNER</span>
-            <h3 class="partner-title">Brand Owners</h3>
-            <p class="partner-description">
-              Full-service Amazon growth: listings, PPC, creatives, and scaling
-              &mdash; executed cleanly and profit-first.
+        <div class="svc-grid svc-grid-2">
+          <article class="svc-card">
+            <div class="svc-head">
+              <div class="svc-headtext">
+                <span class="svc-num">CORE PARTNER</span>
+                <h3 class="svc-title">Brand Owners</h3>
+              </div>
+              <span class="svc-icon" aria-hidden="true">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"
+                  stroke-linecap="round" stroke-linejoin="round">
+                  <path d="M3 9l1.6-5h14.8L21 9"></path>
+                  <path d="M4 9v10a1 1 0 0 0 1 1h14a1 1 0 0 0 1-1V9"></path>
+                  <path d="M9 20v-6h6v6"></path>
+                </svg>
+              </span>
+            </div>
+            <p class="svc-desc">
+              End-to-end Amazon growth&mdash;<strong>listings, advertising,
+              creative, and scaling</strong>&mdash;executed cleanly and with
+              profitability first.
             </p>
+            <div class="svc-foot">
+              <span class="svc-check" aria-hidden="true">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"
+                  stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"></polyline></svg>
+              </span>
+              Profit-first, full-funnel execution
+            </div>
           </article>
-          <article class="partner-card">
-            <span class="partner-badge" aria-hidden="true">QUALIFICATION</span>
-            <h3 class="partner-title">Who We Work With</h3>
-            <p class="partner-description">
-              Established brands already active on Amazon and looking for a
-              focused, long-term growth partner.
+
+          <article class="svc-card">
+            <div class="svc-head">
+              <div class="svc-headtext">
+                <span class="svc-num">QUALIFICATION</span>
+                <h3 class="svc-title">Who We Work With</h3>
+              </div>
+              <span class="svc-icon" aria-hidden="true">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"
+                  stroke-linecap="round" stroke-linejoin="round">
+                  <circle cx="12" cy="12" r="9"></circle>
+                  <circle cx="12" cy="12" r="4"></circle>
+                  <circle cx="12" cy="12" r="0.6" fill="currentColor" stroke="none"></circle>
+                </svg>
+              </span>
+            </div>
+            <p class="svc-desc">
+              <strong>Established brands</strong> already active on Amazon and
+              looking for a focused, long-term growth partner.
             </p>
+            <div class="svc-foot">
+              <span class="svc-check" aria-hidden="true">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"
+                  stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"></polyline></svg>
+              </span>
+              Already selling, ready to scale
+            </div>
           </article>
         </div>
 
@@ -247,131 +607,156 @@
             <p class="form-subtitle">A few quick details and our team will respond within 24&ndash;48 hours.</p>
           </div>
 
+          <div class="form-progress" aria-hidden="true">
+            <div class="form-progress-track"><span class="form-progress-fill" id="formProgressFill"></span></div>
+            <div class="form-progress-labels">
+              <span class="form-progress-step is-active" data-progress="1">1 &middot; Your details</span>
+              <span class="form-progress-step" data-progress="2">2 &middot; Your brand</span>
+            </div>
+          </div>
+
           <p class="visually-hidden" id="form-instructions">Fields marked with an asterisk (*) are required.</p>
           <!-- Honeypot for simple anti-spam -->
           <input type="text" name="_honey" class="visually-hidden" tabindex="-1" autocomplete="off" aria-hidden="true" />
 
-          <div class="form-grid">
-            <div class="form-group">
-              <label for="name" class="form-label">Full Name <span class="required" aria-hidden="true">*</span></label>
-              <div class="form-input-wrapper">
-                <input type="text" id="name" name="name" class="form-input" required aria-required="true"
-                  placeholder="John Doe" autocomplete="name" />
+          <!-- Step 1: low-friction identification -->
+          <div class="form-step" data-step="1">
+            <div class="form-grid">
+              <div class="form-group">
+                <label for="name" class="form-label">Full Name <span class="required" aria-hidden="true">*</span></label>
+                <div class="form-input-wrapper">
+                  <input type="text" id="name" name="name" class="form-input" required aria-required="true"
+                    placeholder="John Doe" autocomplete="name" />
+                </div>
+                <span class="error-message" id="nameError" role="alert">Please provide your full name.</span>
               </div>
-              <span class="error-message" id="nameError" role="alert">Please provide your full name.</span>
+
+              <div class="form-group">
+                <label for="email" class="form-label">Business Email <span class="required"
+                    aria-hidden="true">*</span></label>
+                <div class="form-input-wrapper">
+                  <input type="email" id="email" name="email" class="form-input" required aria-required="true"
+                    placeholder="john@company.com" autocomplete="email" />
+                </div>
+                <span class="error-message" id="emailError" role="alert">Please enter a valid email address.</span>
+              </div>
+
+              <div class="form-group span-2">
+                <label for="brandLink" class="form-label">Brand Website or Amazon Link <span class="required"
+                    aria-hidden="true">*</span></label>
+                <div class="form-input-wrapper">
+                  <input type="url" id="brandLink" name="brand_link" class="form-input" required aria-required="true"
+                    placeholder="https://amazon.com/your-brand" autocomplete="url" />
+                </div>
+                <span class="error-message" id="linkError" role="alert">Please enter a valid website URL starting with
+                  http:// or https://.</span>
+              </div>
             </div>
 
-            <div class="form-group">
-              <label for="email" class="form-label">Email Address <span class="required"
-                  aria-hidden="true">*</span></label>
-              <div class="form-input-wrapper">
-                <input type="email" id="email" name="email" class="form-input" required aria-required="true"
-                  placeholder="john@company.com" autocomplete="email" />
-              </div>
-              <span class="error-message" id="emailError" role="alert">Please enter a valid email address.</span>
-            </div>
-
-            <div class="form-group">
-              <label for="phone" class="form-label">Phone Number <span class="required"
-                  aria-hidden="true">*</span></label>
-              <div class="form-input-wrapper">
-                <input type="tel" id="phone" name="phone" class="form-input" required aria-required="true"
-                  placeholder="+1 (234) 567-8900" autocomplete="tel" />
-              </div>
-              <span class="error-message" id="phoneError" role="alert">Please provide your contact number.</span>
-            </div>
-
-            <div class="form-group">
-              <label for="productCount" class="form-label">Total Product Count (SKUs) <span class="required"
-                  aria-hidden="true">*</span></label>
-              <div class="form-input-wrapper">
-                <input type="number" id="productCount" name="product_count" class="form-input" required
-                  aria-required="true" min="1" placeholder="e.g. 15" />
-              </div>
-              <span class="error-message" id="countError" role="alert">Please specify how many products you have.</span>
-            </div>
-
-            <div class="form-group span-2">
-              <label for="brandLink" class="form-label">Brand Website or Amazon Link <span class="required"
-                  aria-hidden="true">*</span></label>
-              <div class="form-input-wrapper">
-                <input type="url" id="brandLink" name="brand_link" class="form-input" required aria-required="true"
-                  placeholder="https://amazon.com/your-brand" autocomplete="url" />
-              </div>
-              <span class="error-message" id="linkError" role="alert">Please enter a valid website URL starting with
-                http:// or https://.</span>
-            </div>
-
-            <div class="form-group">
-              <label for="salesChannels" class="form-label">Where are your products sold? <span class="required"
-                  aria-hidden="true">*</span></label>
-              <div class="form-input-wrapper">
-                <input type="text" id="salesChannels" name="sales_channels" class="form-input" required
-                  aria-required="true" placeholder="e.g., Amazon, Shopify, Retailers" />
-              </div>
-              <span class="error-message" id="channelsError" role="alert">Please specify your sales channels.</span>
-            </div>
-
-            <div class="form-group">
-              <label for="distribution" class="form-label">Primary Distribution Method <span class="required"
-                  aria-hidden="true">*</span></label>
-              <div class="form-input-wrapper">
-                <input type="text" id="distribution" name="distribution_method" class="form-input" required
-                  aria-required="true" placeholder="e.g., FBA, D2C, Wholesale" />
-              </div>
-              <span class="error-message" id="distError" role="alert">Please enter your distribution method.</span>
-            </div>
-
-            <fieldset class="form-fieldset">
-              <legend class="form-label">Manufacturer's representative? <span class="required"
-                  aria-hidden="true">*</span></legend>
-              <div class="radio-group" role="radiogroup">
-                <label class="radio-label">
-                  <input type="radio" name="manufacturer_rep" value="Yes" required aria-required="true" />
-                  <span class="radio-custom" aria-hidden="true"></span>Yes
-                </label>
-                <label class="radio-label">
-                  <input type="radio" name="manufacturer_rep" value="No" required aria-required="true" />
-                  <span class="radio-custom" aria-hidden="true"></span>No
-                </label>
-              </div>
-              <span class="error-message" id="repError" role="alert" style="display:none;">Please select an option.</span>
-            </fieldset>
-
-            <fieldset class="form-fieldset">
-              <legend class="form-label">Registered trademark? <span class="required"
-                  aria-hidden="true">*</span></legend>
-              <div class="radio-group" role="radiogroup">
-                <label class="radio-label">
-                  <input type="radio" name="registered_trademark" value="Yes" required aria-required="true" />
-                  <span class="radio-custom" aria-hidden="true"></span>Yes
-                </label>
-                <label class="radio-label">
-                  <input type="radio" name="registered_trademark" value="No" required aria-required="true" />
-                  <span class="radio-custom" aria-hidden="true"></span>No
-                </label>
-              </div>
-              <span class="error-message" id="tmError" role="alert" style="display:none;">Please select an option.</span>
-            </fieldset>
-
-            <div class="form-group span-2">
-              <label for="goal" class="form-label">What is your primary goal for contacting us today? <span
-                  class="required" aria-hidden="true">*</span></label>
-              <div class="form-input-wrapper">
-                <textarea id="goal" name="primary_goal" class="form-textarea" required aria-required="true" rows="5"
-                  maxlength="200" placeholder="Briefly describe what you're trying to achieve..."></textarea>
-              </div>
-              <div class="textarea-footer">
-                <span class="error-message" id="goalError" role="alert">Please let us know your goals.</span>
-                <span class="char-count" aria-live="polite"><span id="charCount">0</span>/200</span>
-              </div>
-            </div>
+            <button type="button" class="button-53 form-next" id="formNext">
+              <span class="btn-text">Continue to Performance Details &rarr;</span>
+            </button>
           </div>
 
-          <button type="submit" class="button-53" id="submitBtn">
-            <span class="btn-text">Submit Application</span>
-            <span class="spinner" aria-hidden="true"></span>
-          </button>
+          <!-- Step 2: operational qualification -->
+          <div class="form-step" data-step="2" hidden>
+            <div class="form-grid">
+              <div class="form-group">
+                <label for="phone" class="form-label">Phone Number <span class="required"
+                    aria-hidden="true">*</span></label>
+                <div class="form-input-wrapper">
+                  <input type="tel" id="phone" name="phone" class="form-input" required aria-required="true"
+                    placeholder="+1 (234) 567-8900" autocomplete="tel" />
+                </div>
+                <span class="error-message" id="phoneError" role="alert">Please provide your contact number.</span>
+              </div>
+
+              <div class="form-group">
+                <label for="productCount" class="form-label">Total Product Count (SKUs) <span class="required"
+                    aria-hidden="true">*</span></label>
+                <div class="form-input-wrapper">
+                  <input type="number" id="productCount" name="product_count" class="form-input" required
+                    aria-required="true" min="1" placeholder="e.g. 15" />
+                </div>
+                <span class="error-message" id="countError" role="alert">Please specify how many products you have.</span>
+              </div>
+
+              <div class="form-group">
+                <label for="salesChannels" class="form-label">Where are your products sold? <span class="required"
+                    aria-hidden="true">*</span></label>
+                <div class="form-input-wrapper">
+                  <input type="text" id="salesChannels" name="sales_channels" class="form-input" required
+                    aria-required="true" placeholder="e.g., Amazon, Shopify, Retailers" />
+                </div>
+                <span class="error-message" id="channelsError" role="alert">Please specify your sales channels.</span>
+              </div>
+
+              <div class="form-group">
+                <label for="distribution" class="form-label">Primary Distribution Method <span class="required"
+                    aria-hidden="true">*</span></label>
+                <div class="form-input-wrapper">
+                  <input type="text" id="distribution" name="distribution_method" class="form-input" required
+                    aria-required="true" placeholder="e.g., FBA, D2C, Wholesale" />
+                </div>
+                <span class="error-message" id="distError" role="alert">Please enter your distribution method.</span>
+              </div>
+
+              <fieldset class="form-fieldset">
+                <legend class="form-label">Manufacturer's representative? <span class="required"
+                    aria-hidden="true">*</span></legend>
+                <div class="radio-group" role="radiogroup">
+                  <label class="radio-label">
+                    <input type="radio" name="manufacturer_rep" value="Yes" required aria-required="true" />
+                    <span class="radio-custom" aria-hidden="true"></span>Yes
+                  </label>
+                  <label class="radio-label">
+                    <input type="radio" name="manufacturer_rep" value="No" required aria-required="true" />
+                    <span class="radio-custom" aria-hidden="true"></span>No
+                  </label>
+                </div>
+                <span class="error-message" id="repError" role="alert" style="display:none;">Please select an option.</span>
+              </fieldset>
+
+              <fieldset class="form-fieldset">
+                <legend class="form-label">Registered trademark? <span class="required"
+                    aria-hidden="true">*</span></legend>
+                <div class="radio-group" role="radiogroup">
+                  <label class="radio-label">
+                    <input type="radio" name="registered_trademark" value="Yes" required aria-required="true" />
+                    <span class="radio-custom" aria-hidden="true"></span>Yes
+                  </label>
+                  <label class="radio-label">
+                    <input type="radio" name="registered_trademark" value="No" required aria-required="true" />
+                    <span class="radio-custom" aria-hidden="true"></span>No
+                  </label>
+                </div>
+                <span class="error-message" id="tmError" role="alert" style="display:none;">Please select an option.</span>
+              </fieldset>
+
+              <div class="form-group span-2">
+                <label for="goal" class="form-label">What is your primary goal for contacting us today? <span
+                    class="required" aria-hidden="true">*</span></label>
+                <div class="form-input-wrapper">
+                  <textarea id="goal" name="primary_goal" class="form-textarea" required aria-required="true" rows="4"
+                    maxlength="200" placeholder="Briefly describe what you're trying to achieve..."></textarea>
+                </div>
+                <div class="textarea-footer">
+                  <span class="error-message" id="goalError" role="alert">Please let us know your goals.</span>
+                  <span class="char-count" aria-live="polite"><span id="charCount">0</span>/200</span>
+                </div>
+              </div>
+            </div>
+
+            <div class="form-actions">
+              <button type="button" class="form-back" id="formBack">
+                <span>&larr; Back</span>
+              </button>
+              <button type="submit" class="button-53" id="submitBtn">
+                <span class="btn-text">Submit Secure Application</span>
+                <span class="spinner" aria-hidden="true"></span>
+              </button>
+            </div>
+          </div>
           <p class="form-privacy-note">
             Your information is encrypted and never sold. See our
             <a href="privacy.html">Privacy Policy</a>.
@@ -393,15 +778,21 @@
             pricing, and drive long-term global revenue growth.
           </p>
           <a href="https://www.amazon.com/sp?ie=UTF8&seller=A1PSSP1I3UBATU" target="_blank" rel="noopener noreferrer"
-            class="btn-34 nav-store-btn footer-store-btn" aria-label="Visit our Amazon store in a new tab">
-            <span>Visit Our Store</span>
+            class="storefront-btn footer-store-btn" aria-label="Explore our live storefront on Amazon (opens in a new tab)">
+            Explore Our Storefront
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+              stroke-linejoin="round" aria-hidden="true">
+              <path d="M7 17 17 7"></path>
+              <path d="M7 7h10v10"></path>
+            </svg>
           </a>
+          <p class="footer-store-note">See exactly how we represent our partners live on Amazon.</p>
         </div>
 
         <nav class="footer-col" aria-label="Company links">
           <h4 class="footer-heading">Company</h4>
           <a href="#about">Partnership Model</a>
-          <a href="#contact">Apply Now</a>
+          <a href="#contact">Request Blueprint</a>
           <a href="#home">Home</a>
         </nav>
 
@@ -445,7 +836,7 @@
   </footer>
 
   <!-- Main Script -->
-  <script src="script.js"></script>
+  <script src="script.js?v=14"></script>
 </body>
 
 </html>
