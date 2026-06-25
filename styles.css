@@ -2364,11 +2364,17 @@ html[data-theme="light"] .step-item {
 
 @media (max-width: 768px) {
   .nav-right {
-    gap: 0.6rem;
+    gap: 0.4rem;
   }
 
+  /* Smaller wordmark + icons so the logo isn't crammed against the controls */
   .logo-svg {
-    height: 22px;
+    height: 19px;
+  }
+
+  .nav-right .icon-btn {
+    width: 36px;
+    height: 36px;
   }
 
   /* Collapse the text links into a tap-to-open dropdown */
@@ -2488,6 +2494,15 @@ html[data-theme="light"] .step-item {
 }
 
 @media (max-width: 480px) {
+  /* Keep a clear gap between the wordmark and the nav controls on small phones */
+  .logo-svg {
+    height: 17px;
+  }
+
+  .nav-center {
+    margin-right: 0.5rem;
+  }
+
   .hero-content {
     margin: 0;
     padding-top: 6rem;
