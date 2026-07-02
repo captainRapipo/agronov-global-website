@@ -23,7 +23,7 @@
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link
-    href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@1,9..144,500;1,9..144,600&family=Plus+Jakarta+Sans:wght@500;600;700&display=swap"
+    href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@500;600;700;800&display=swap"
     rel="stylesheet" />
 
   <style>
@@ -126,8 +126,8 @@
       text-align: center;
       padding: 44px 48px 36px;
       border-radius: 30px;
-      background: rgba(255, 255, 255, 0.22);
-      border: 1px solid rgba(255, 255, 255, 0.46);
+      background: rgba(255, 255, 255, 0.4);
+      border: 1px solid rgba(255, 255, 255, 0.6);
       backdrop-filter: blur(18px) saturate(1.15);
       -webkit-backdrop-filter: blur(18px) saturate(1.15);
       box-shadow:
@@ -151,15 +151,14 @@
     }
 
     .tagline {
-      font-family: "Fraunces", Georgia, serif;
-      font-style: italic;
-      font-weight: 500;
-      font-size: clamp(1.3rem, 3.1vw, 1.9rem);
-      line-height: 1.2;
+      font-family: "Plus Jakarta Sans", system-ui, sans-serif;
+      font-weight: 800;
+      font-size: clamp(1.55rem, 3.7vw, 2.25rem);
+      line-height: 1.18;
+      letter-spacing: -0.015em;
       color: var(--ink);
-      margin-bottom: 30px;
+      margin-bottom: 32px;
       white-space: nowrap;
-      text-shadow: 0 1px 0 rgba(255, 255, 255, 0.4);
     }
 
     /* Store CTA */
@@ -167,16 +166,16 @@
       display: inline-flex;
       align-items: center;
       gap: 12px;
-      padding: 15px 30px;
+      padding: 16px 32px;
       border-radius: 999px;
-      background: var(--accent);
-      color: #3d2400;
+      background: linear-gradient(180deg, #ffa521 0%, #f28a00 100%);
+      color: #1b1205;
       text-decoration: none;
-      font-weight: 700;
+      font-weight: 800;
       font-size: 0.98rem;
       letter-spacing: 0.05em;
       text-transform: uppercase;
-      box-shadow: 0 14px 30px rgba(255, 153, 0, 0.4);
+      box-shadow: 0 14px 30px rgba(240, 138, 0, 0.42);
       transition: transform 0.18s ease, box-shadow 0.18s ease, gap 0.18s ease;
     }
 
@@ -197,7 +196,7 @@
     .divider {
       width: 100%;
       height: 1px;
-      background: rgba(8, 50, 63, 0.18);
+      background: rgba(8, 50, 63, 0.28);
       margin: 30px 0 22px;
     }
 
@@ -213,10 +212,10 @@
       display: inline-flex;
       align-items: center;
       gap: 9px;
-      color: var(--ink-soft);
+      color: var(--ink);
       text-decoration: none;
-      font-size: 0.92rem;
-      font-weight: 600;
+      font-size: 0.94rem;
+      font-weight: 700;
       transition: color 0.16s ease;
     }
 
@@ -231,7 +230,7 @@
     }
 
     .contact-sep {
-      color: rgba(8, 50, 63, 0.25);
+      color: rgba(8, 50, 63, 0.4);
       user-select: none;
     }
 
@@ -345,7 +344,7 @@
       bottom: clamp(30px, 8vh, 74px);
       width: clamp(100px, 12vw, 152px);
       opacity: 0.96;
-      animation: cruise-lr 20s linear infinite;
+      animation: cruise-rl 20s linear infinite;
       animation-delay: -9s;
     }
 
@@ -362,8 +361,7 @@
     /* facing — kept separate from motion so travel direction stays correct.
        The gif faces left by default, so mirror the right-bound riders. */
     .pudgy .face { display: block; }
-    .pudgy-a .face,
-    .pudgy-c .face { transform: scaleX(-1); }
+    .pudgy-a .face { transform: scaleX(-1); }
 
     .pudgy .rider {
       display: block;

@@ -22,11 +22,11 @@
     // Palms rise from the shoreline, clustered toward the edges so the
     // centre of the frame stays open for content.
     palms = [];
-    var count = W < 680 ? 5 : 9;
+    var count = W < 680 ? 4 : 8;                 // even count keeps a gap at centre
     for (var i = 0; i < count; i++) {
       var slot = (i + 0.5) / count;             // even spacing across shoreline
       palms.push({
-        x: (slot + rand(-0.045, 0.045)) * W,
+        x: (slot + rand(-0.03, 0.03)) * W,
         h: rand(0.11, 0.19) * H,
         sway: rand(0.6, 1.3),
         phase: rand(0, Math.PI * 2),
@@ -72,8 +72,8 @@
 
   function sunPos() {
     return {
-      x: W * 0.5 + Math.sin(t * 0.0006) * (W * 0.14),
-      y: H * 0.30 + Math.cos(t * 0.0006) * (H * 0.03)
+      x: W * 0.5 + Math.sin(t * 0.0006) * (W * 0.06),
+      y: H * 0.23 + Math.cos(t * 0.0006) * (H * 0.02)
     };
   }
 
