@@ -80,7 +80,7 @@
     .logo-badge {
       position: fixed;
       top: 22px;
-      right: 26px;
+      left: 26px;
       z-index: 4;
       display: flex;
       align-items: center;
@@ -122,9 +122,9 @@
 
     .card {
       width: 100%;
-      max-width: 540px;
+      max-width: 680px;
       text-align: center;
-      padding: 40px 40px 34px;
+      padding: 44px 48px 36px;
       border-radius: 30px;
       background: rgba(255, 255, 255, 0.22);
       border: 1px solid rgba(255, 255, 255, 0.46);
@@ -154,10 +154,11 @@
       font-family: "Fraunces", Georgia, serif;
       font-style: italic;
       font-weight: 500;
-      font-size: clamp(1.5rem, 4.4vw, 2.15rem);
-      line-height: 1.18;
+      font-size: clamp(1.3rem, 3.1vw, 1.9rem);
+      line-height: 1.2;
       color: var(--ink);
       margin-bottom: 30px;
+      white-space: nowrap;
       text-shadow: 0 1px 0 rgba(255, 255, 255, 0.4);
     }
 
@@ -234,12 +235,54 @@
       user-select: none;
     }
 
-    .brand-name {
-      margin-top: 20px;
-      font-size: 0.78rem;
+    /* Copyright — pinned to the bottom of the page */
+    .page-footer {
+      position: fixed;
+      left: 0;
+      right: 0;
+      bottom: 16px;
+      z-index: 3;
+      text-align: center;
+      font-size: 0.8rem;
       font-weight: 600;
       letter-spacing: 0.02em;
-      color: rgba(8, 50, 63, 0.55);
+      color: rgba(255, 255, 255, 0.85);
+      text-shadow: 0 1px 8px rgba(3, 50, 70, 0.55);
+      pointer-events: none;
+      animation: fade-in 1s ease 1.2s both;
+    }
+
+    @keyframes fade-in {
+      from { opacity: 0; }
+      to { opacity: 1; }
+    }
+
+    /* Pudgy mascots riding the tide */
+    .pudgy {
+      position: fixed;
+      bottom: clamp(6px, 3vh, 42px);
+      width: clamp(118px, 15vw, 188px);
+      z-index: 3;
+      pointer-events: none;
+      filter: drop-shadow(0 14px 12px rgba(3, 60, 90, 0.3));
+    }
+
+    .pudgy-left { left: clamp(6px, 3vw, 54px); }
+    .pudgy-right { right: clamp(6px, 3vw, 54px); transform: scaleX(-1); }
+
+    .pudgy .rider {
+      display: block;
+      width: 100%;
+      height: auto;
+      transform-origin: 50% 82%;
+      animation: ride 4.6s ease-in-out infinite;
+    }
+
+    .pudgy-right .rider { animation-delay: -2.3s; }
+
+    @keyframes ride {
+      0%, 100% { transform: translateY(0) rotate(-2.5deg); }
+      50% { transform: translateY(-9px) rotate(2.5deg); }
     }
 
     @media (max-width: 720px) {
@@ -254,19 +297,25 @@
         from { opacity: 0; transform: translateX(50%) translateY(-16px); }
         to { opacity: 1; transform: translateX(50%) translateY(0); }
       }
-      .stage { padding: 108px 18px 32px; }
-      .card { padding: 32px 24px 28px; }
+      .stage { padding: 104px 18px 96px; }
+      .card { padding: 32px 24px 28px; max-width: 440px; }
+      .tagline { white-space: normal; }
       .contact-sep { display: none; }
       .contact { flex-direction: column; gap: 15px; }
+      .pudgy { width: clamp(84px, 27vw, 128px); bottom: 4px; }
+      .pudgy-left { left: 2px; }
+      .pudgy-right { right: 2px; }
     }
 
     @media (prefers-reduced-motion: reduce) {
       .logo-badge,
-      .card {
+      .card,
+      .page-footer {
         animation: none !important;
         opacity: 1 !important;
         transform: none !important;
       }
+      .pudgy .rider { animation: none !important; }
       @media (max-width: 720px) {
         .logo-badge { transform: translateX(50%) !important; }
       }
@@ -303,7 +352,6 @@
   <!-- Content -->
   <main class="stage">
     <div class="card">
-      <p class="eyebrow">Amazon Brand Partners</p>
       <p class="tagline">Your brand, riding the global tide.</p>
 
       <a class="store-link" href="https://www.amazon.com/sp?ie=UTF8&seller=A1PSSP1I3UBATU" target="_blank" rel="noopener noreferrer" aria-label="Dive into our storefront on Amazon (opens in a new tab)">
@@ -344,10 +392,56 @@
           <span>Las Vegas, Nevada &middot; USA</span>
         </a>
       </nav>
-
-      <p class="brand-name">&copy; 2026 AGRONOV Global LLC.</p>
     </div>
   </main>
+
+  <!-- Pudgy mascot symbol (defined once, used both sides) -->
+  <svg width="0" height="0" style="position:absolute" aria-hidden="true">
+    <symbol id="pudgy" viewBox="0 0 260 190">
+      <!-- Water spray (trailing behind) -->
+      <g fill="#ffffff" opacity="0.92">
+        <ellipse cx="72" cy="152" rx="30" ry="12" />
+        <circle cx="46" cy="142" r="11" />
+        <circle cx="60" cy="129" r="7.5" />
+        <circle cx="38" cy="154" r="6" />
+        <circle cx="92" cy="134" r="6.5" />
+        <circle cx="30" cy="146" r="4.5" />
+      </g>
+      <!-- Jet-ski -->
+      <path d="M52,146 C90,157 205,155 222,147 C226,151 220,157 205,160 C120,168 70,163 55,154 C52,151 52,148 52,146 Z" fill="#c1620f" />
+      <path d="M52,146 C46,140 48,130 60,126 L150,120 C180,118 206,122 224,132 C230,135 230,143 222,147 C205,155 90,157 52,146 Z" fill="#f2851f" />
+      <path d="M68,127 L212,127 C216,128 216,131 212,132 L68,134 Z" fill="#ffc94d" />
+      <path d="M214,130 C222,131 228,134 231,138 C226,139 219,137 214,134 Z" fill="#ffc94d" />
+      <!-- Seat -->
+      <path d="M92,123 C92,110 108,104 128,104 L150,104 C165,104 173,113 170,121 L100,125 C95,125 92,125 92,123 Z" fill="#1f2933" />
+      <!-- Handlebar -->
+      <path d="M176,120 C179,105 183,97 189,93" fill="none" stroke="#1f2933" stroke-width="5" stroke-linecap="round" />
+      <rect x="181" y="87" width="22" height="7" rx="3.5" fill="#1f2933" transform="rotate(14 192 90)" />
+      <!-- Penguin body -->
+      <path d="M98,124 C87,124 83,109 87,94 C91,75 106,63 124,63 C143,63 155,78 155,97 C155,112 150,124 137,124 Z" fill="#8fc0e8" />
+      <!-- Head cap -->
+      <path d="M89,95 C91,75 105,61 124,61 C142,61 155,73 156,91 C147,80 135,76 124,77 C109,78 97,85 90,96 Z" fill="#4e86be" />
+      <!-- Belly / face -->
+      <ellipse cx="122" cy="101" rx="22" ry="26" fill="#ffffff" />
+      <!-- Brows -->
+      <path d="M110,80 L124,84" stroke="#1f2933" stroke-width="2.6" stroke-linecap="round" />
+      <path d="M140,81 L128,84" stroke="#1f2933" stroke-width="2.6" stroke-linecap="round" />
+      <!-- Eyes -->
+      <circle cx="118" cy="89" r="4.6" fill="#1f2933" />
+      <circle cx="133" cy="89" r="4.6" fill="#1f2933" />
+      <circle cx="119.6" cy="87.4" r="1.5" fill="#ffffff" />
+      <circle cx="134.6" cy="87.4" r="1.5" fill="#ffffff" />
+      <!-- Beak -->
+      <path d="M150,94 L165,98 L150,103 Z" fill="#ff9f1c" />
+      <!-- Front flipper to handlebar -->
+      <path d="M145,102 C160,103 173,107 183,111 C185,113 183,117 179,117 C168,115 156,112 145,111 Z" fill="#7fb4e0" />
+    </symbol>
+  </svg>
+
+  <div class="pudgy pudgy-left" aria-hidden="true"><svg class="rider" viewBox="0 0 260 190"><use href="#pudgy" /></svg></div>
+  <div class="pudgy pudgy-right" aria-hidden="true"><svg class="rider" viewBox="0 0 260 190"><use href="#pudgy" /></svg></div>
+
+  <footer class="page-footer">&copy; 2026 AGRONOV Global LLC.</footer>
 
   <script src="scene.js" defer></script>
 </body>
