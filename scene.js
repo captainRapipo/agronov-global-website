@@ -22,18 +22,15 @@
     // Palms rise from the shoreline, clustered toward the edges so the
     // centre of the frame stays open for content.
     palms = [];
-    var count = W < 680 ? 3 : 6;
+    var count = W < 680 ? 5 : 9;
     for (var i = 0; i < count; i++) {
-      var edgeBias = Math.random() < 0.5
-        ? rand(0.02, 0.24)
-        : rand(0.76, 0.98);
+      var slot = (i + 0.5) / count;             // even spacing across shoreline
       palms.push({
-        x: edgeBias * W,
-        h: rand(0.16, 0.28) * H,
-        lean: rand(-0.12, 0.12),
-        sway: rand(0.6, 1.4),
+        x: (slot + rand(-0.045, 0.045)) * W,
+        h: rand(0.11, 0.19) * H,
+        sway: rand(0.6, 1.3),
         phase: rand(0, Math.PI * 2),
-        scale: rand(0.85, 1.15)
+        scale: rand(0.8, 1.2)
       });
     }
 
@@ -112,38 +109,51 @@
     ctx.fill();
   }
 
-  function drawPalm(p) {
-    var sway = reduceMotion ? 0 : Math.sin(t * 0.0016 * p.sway + p.phase) * 0.04;
+  function drawTree(p) {
+    var sway = reduceMotion ? 0 : Math.sin(t * 0.0016 * p.sway + p.phase) * 0.03;
     ctx.save();
-    ctx.translate(p.x, HORIZON + 6);
-    ctx.rotate(p.lean + sway);
+    ctx.translate(p.x, HORIZON + 8);
+    ctx.rotate(sway);
     ctx.scale(p.scale, p.scale);
 
-    ctx.fillStyle = "rgba(18,44,52,0.92)";
-    ctx.strokeStyle = "rgba(18,44,52,0.92)";
+    var th = p.h; // trunk height
 
-    // Trunk (tapered, slight curve)
+    // Trunk (tapered, slightly curved)
+    ctx.fillStyle = "#8a5a2b";
     ctx.beginPath();
-    ctx.moveTo(-4, 0);
-    ctx.quadraticCurveTo(2, -p.h * 0.55, 3, -p.h);
-    ctx.lineTo(9, -p.h);
-    ctx.quadraticCurveTo(8, -p.h * 0.55, 4, 0);
+    ctx.moveTo(-5, 0);
+    ctx.quadraticCurveTo(-2, -th * 0.5, -3, -th);
+    ctx.lineTo(3, -th);
+    ctx.quadraticCurveTo(2, -th * 0.5, 5, 0);
     ctx.closePath();
     ctx.fill();
 
-    // Fronds
-    var top = -p.h + 2, cx = 6;
-    for (var i = 0; i < 7; i++) {
-      var ang = (Math.PI * (i / 6)) - Math.PI * 0.05;
-      var len = p.h * (0.55 + (i % 2) * 0.12);
-      var dx = Math.cos(ang) * len;
-      var dy = -Math.abs(Math.sin(ang)) * len * 0.5 - 6;
+    // Bushy canopy — cluster of green puffs
+    var cy = -th - 4;
+    var r = th * 0.42;
+    var puffs = [
+      [0, 6, r * 1.05], [-r * 0.82, 2, r * 0.82], [r * 0.82, 2, r * 0.82],
+      [-r * 0.46, -r * 0.58, r * 0.72], [r * 0.46, -r * 0.58, r * 0.72],
+      [0, -r * 0.86, r * 0.74]
+    ];
+    var i;
+    ctx.fillStyle = "#2f7d32"; // shadow layer
+    for (i = 0; i < puffs.length; i++) {
       ctx.beginPath();
-      ctx.moveTo(cx, top);
-      ctx.quadraticCurveTo(cx + dx * 0.5, top + dy * 1.4, cx + dx, top + dy + Math.abs(dx) * 0.18);
-      ctx.lineWidth = 5;
-      ctx.stroke();
+      ctx.arc(puffs[i][0], cy + puffs[i][1] + 3, puffs[i][2], 0, Math.PI * 2);
+      ctx.fill();
     }
+    ctx.fillStyle = "#40a340"; // mid layer
+    for (i = 0; i < puffs.length; i++) {
+      ctx.beginPath();
+      ctx.arc(puffs[i][0], cy + puffs[i][1], puffs[i][2] * 0.92, 0, Math.PI * 2);
+      ctx.fill();
+    }
+    ctx.fillStyle = "#59ba59"; // highlight
+    ctx.beginPath();
+    ctx.arc(-r * 0.32, cy - r * 0.42, r * 0.52, 0, Math.PI * 2);
+    ctx.fill();
+
     ctx.restore();
   }
 
@@ -237,7 +247,7 @@
     var s = sunPos();
     drawSky();
     drawSun(s);
-    for (var i = 0; i < palms.length; i++) drawPalm(palms[i]);
+    for (var i = 0; i < palms.length; i++) drawTree(palms[i]);
     drawBeach();
     drawOcean(s);
     drawBirds();

@@ -14,10 +14,10 @@
   <meta property="og:url" content="https://agronovglobal.com/" />
 
   <!-- Favicons -->
-  <link rel="icon" type="image/svg+xml" href="favicon.svg?v=2" />
-  <link rel="icon" type="image/png" sizes="32x32" href="favicon-32x32.png?v=2" />
-  <link rel="icon" type="image/png" sizes="16x16" href="favicon-16x16.png?v=2" />
-  <link rel="apple-touch-icon" sizes="180x180" href="apple-touch-icon.png?v=2" />
+  <link rel="icon" type="image/svg+xml" href="favicon.svg?v=3" />
+  <link rel="icon" type="image/png" sizes="32x32" href="favicon-32x32.png?v=3" />
+  <link rel="icon" type="image/png" sizes="16x16" href="favicon-16x16.png?v=3" />
+  <link rel="apple-touch-icon" sizes="180x180" href="apple-touch-icon.png?v=3" />
 
   <!-- Typography -->
   <link rel="preconnect" href="https://fonts.googleapis.com" />
@@ -235,6 +235,70 @@
       user-select: none;
     }
 
+    /* WhatsApp menu (Call / Message) */
+    .wa { position: relative; }
+    .wa summary {
+      list-style: none;
+      cursor: pointer;
+    }
+    .wa summary::-webkit-details-marker { display: none; }
+    .wa-ico {
+      width: 17px;
+      height: 17px;
+      fill: #25d366;
+      flex-shrink: 0;
+    }
+    .wa-pop {
+      position: absolute;
+      left: 50%;
+      bottom: calc(100% + 12px);
+      transform: translateX(-50%);
+      display: flex;
+      flex-direction: column;
+      gap: 4px;
+      min-width: 196px;
+      padding: 8px;
+      border-radius: 16px;
+      background: rgba(255, 255, 255, 0.92);
+      backdrop-filter: blur(14px);
+      -webkit-backdrop-filter: blur(14px);
+      border: 1px solid rgba(255, 255, 255, 0.7);
+      box-shadow: 0 18px 40px rgba(3, 50, 70, 0.3);
+      z-index: 5;
+    }
+    .wa-pop::after {
+      content: "";
+      position: absolute;
+      top: 100%;
+      left: 50%;
+      transform: translateX(-50%);
+      border: 7px solid transparent;
+      border-top-color: rgba(255, 255, 255, 0.92);
+    }
+    .wa-opt {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      padding: 10px 12px;
+      border-radius: 11px;
+      text-decoration: none;
+      font-size: 0.9rem;
+      font-weight: 600;
+      color: var(--ink);
+      white-space: nowrap;
+      transition: background 0.14s ease;
+    }
+    .wa-opt:hover { background: rgba(8, 50, 63, 0.09); }
+    .wa-opt svg { width: 17px; height: 17px; flex-shrink: 0; }
+    .wa-opt .i-call { color: var(--accent); }
+    .wa-opt .i-msg { fill: #25d366; }
+    .wa-opt small {
+      display: block;
+      font-weight: 500;
+      font-size: 0.76rem;
+      color: var(--ink-soft);
+    }
+
     /* Copyright — pinned to the bottom of the page */
     .page-footer {
       position: fixed;
@@ -257,32 +321,51 @@
       to { opacity: 1; }
     }
 
-    /* Pudgy mascots riding the tide */
+    /* Pudgy mascots cruising the tide */
     .pudgy {
       position: fixed;
-      bottom: clamp(6px, 3vh, 42px);
-      width: clamp(118px, 15vw, 188px);
+      left: 0;
+      bottom: clamp(4px, 2.5vh, 30px);
+      width: clamp(118px, 14vw, 178px);
       z-index: 3;
       pointer-events: none;
       filter: drop-shadow(0 14px 12px rgba(3, 60, 90, 0.3));
+      will-change: transform;
     }
 
-    .pudgy-left { left: clamp(6px, 3vw, 54px); transform: scaleX(-1); }
-    .pudgy-right { right: clamp(6px, 3vw, 54px); }
+    /* near lane — travels left → right, faces right */
+    .pudgy-a { animation: cruise-lr 17s linear infinite; }
+    /* far lane — travels right → left, faces left, smaller for depth */
+    .pudgy-b {
+      bottom: clamp(66px, 15vh, 140px);
+      width: clamp(84px, 10vw, 132px);
+      opacity: 0.92;
+      animation: cruise-rl 23s linear infinite;
+    }
+
+    @keyframes cruise-lr {
+      from { transform: translateX(-240px) scaleX(-1); }
+      to { transform: translateX(calc(100vw + 90px)) scaleX(-1); }
+    }
+
+    @keyframes cruise-rl {
+      from { transform: translateX(calc(100vw + 90px)); }
+      to { transform: translateX(-240px); }
+    }
 
     .pudgy .rider {
       display: block;
       width: 100%;
       height: auto;
       transform-origin: 50% 82%;
-      animation: ride 4.6s ease-in-out infinite;
+      animation: bob 3.6s ease-in-out infinite;
     }
 
-    .pudgy-right .rider { animation-delay: -2.3s; }
+    .pudgy-b .rider { animation-delay: -1.8s; }
 
-    @keyframes ride {
-      0%, 100% { transform: translateY(0) rotate(-2.5deg); }
-      50% { transform: translateY(-9px) rotate(2.5deg); }
+    @keyframes bob {
+      0%, 100% { transform: translateY(0) rotate(-2deg); }
+      50% { transform: translateY(-7px) rotate(2deg); }
     }
 
     @media (max-width: 720px) {
@@ -302,9 +385,8 @@
       .tagline { white-space: normal; }
       .contact-sep { display: none; }
       .contact { flex-direction: column; gap: 15px; }
-      .pudgy { width: clamp(84px, 27vw, 128px); bottom: 4px; }
-      .pudgy-left { left: 2px; }
-      .pudgy-right { right: 2px; }
+      .pudgy { width: clamp(78px, 24vw, 120px); }
+      .pudgy-b { bottom: clamp(48px, 13vh, 104px); width: clamp(58px, 17vw, 92px); }
     }
 
     @media (prefers-reduced-motion: reduce) {
@@ -315,7 +397,17 @@
         opacity: 1 !important;
         transform: none !important;
       }
+      .pudgy,
       .pudgy .rider { animation: none !important; }
+      .pudgy-a { left: clamp(6px, 3vw, 54px); transform: scaleX(-1) !important; }
+      .pudgy-b {
+        left: auto;
+        right: clamp(6px, 3vw, 54px);
+        bottom: clamp(4px, 2.5vh, 30px);
+        width: clamp(118px, 14vw, 178px);
+        opacity: 1;
+        transform: none !important;
+      }
       @media (max-width: 720px) {
         .logo-badge { transform: translateX(50%) !important; }
       }
@@ -365,12 +457,24 @@
       <div class="divider" aria-hidden="true"></div>
 
       <nav class="contact" aria-label="Contact">
-        <a class="contact-item" href="tel:+17027276966">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
-            <path d="M5 4h4l2 5l-2.5 1.5a11 11 0 0 0 5 5l1.5 -2.5l5 2v4a2 2 0 0 1 -2 2a16 16 0 0 1 -15 -15a2 2 0 0 1 2 -2" />
-          </svg>
-          <span>+1 (702) 727-6966</span>
-        </a>
+        <details class="wa">
+          <summary class="contact-item">
+            <svg class="wa-ico" viewBox="0 0 640 640" aria-hidden="true"><path d="M476.9 161.1C435 119.1 379.2 96 319.9 96C197.5 96 97.9 195.6 97.9 318C97.9 357.1 108.1 395.3 127.5 429L96 544L213.7 513.1C246.1 530.8 282.6 540.1 319.8 540.1L319.9 540.1C442.2 540.1 544 440.5 544 318.1C544 258.8 518.8 203.1 476.9 161.1zM319.9 502.7C286.7 502.7 254.2 493.8 225.9 477L219.2 473L149.4 491.3L168 423.2L163.6 416.2C145.1 386.8 135.4 352.9 135.4 318C135.4 216.3 218.2 133.5 320 133.5C369.3 133.5 415.6 152.7 450.4 187.6C485.2 222.5 506.6 268.8 506.5 318.1C506.5 419.9 421.6 502.7 319.9 502.7zM421.1 364.5C415.6 361.7 388.3 348.3 383.2 346.5C378.1 344.6 374.4 343.7 370.7 349.3C367 354.9 356.4 367.3 353.1 371.1C349.9 374.8 346.6 375.3 341.1 372.5C308.5 356.2 287.1 343.4 265.6 306.5C259.9 296.7 271.3 297.4 281.9 276.2C283.7 272.5 282.8 269.3 281.4 266.5C280 263.7 268.9 236.4 264.3 225.3C259.8 214.5 255.2 216 251.8 215.8C248.6 215.6 244.9 215.6 241.2 215.6C237.5 215.6 231.5 217 226.4 222.5C221.3 228.1 207 241.5 207 268.8C207 296.1 226.9 322.5 229.6 326.2C232.4 329.9 268.7 385.9 324.4 410C359.6 425.2 373.4 426.5 391 423.9C401.7 422.3 423.8 410.5 428.4 397.5C433 384.5 433 373.4 431.6 371.1C430.3 368.6 426.6 367.2 421.1 364.5z"/></svg>
+            <span>WhatsApp</span>
+          </summary>
+          <div class="wa-pop" role="menu">
+            <a class="wa-opt" href="tel:+17027276966" role="menuitem">
+              <svg class="i-call" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                <path d="M5 4h4l2 5l-2.5 1.5a11 11 0 0 0 5 5l1.5 -2.5l5 2v4a2 2 0 0 1 -2 2a16 16 0 0 1 -15 -15a2 2 0 0 1 2 -2" />
+              </svg>
+              <span>Call<small>+1 (702) 727-6966</small></span>
+            </a>
+            <a class="wa-opt" href="https://api.whatsapp.com/send?phone=17027276966" target="_blank" rel="noopener noreferrer" role="menuitem">
+              <svg class="i-msg" viewBox="0 0 640 640" aria-hidden="true"><path d="M476.9 161.1C435 119.1 379.2 96 319.9 96C197.5 96 97.9 195.6 97.9 318C97.9 357.1 108.1 395.3 127.5 429L96 544L213.7 513.1C246.1 530.8 282.6 540.1 319.8 540.1L319.9 540.1C442.2 540.1 544 440.5 544 318.1C544 258.8 518.8 203.1 476.9 161.1zM319.9 502.7C286.7 502.7 254.2 493.8 225.9 477L219.2 473L149.4 491.3L168 423.2L163.6 416.2C145.1 386.8 135.4 352.9 135.4 318C135.4 216.3 218.2 133.5 320 133.5C369.3 133.5 415.6 152.7 450.4 187.6C485.2 222.5 506.6 268.8 506.5 318.1C506.5 419.9 421.6 502.7 319.9 502.7zM421.1 364.5C415.6 361.7 388.3 348.3 383.2 346.5C378.1 344.6 374.4 343.7 370.7 349.3C367 354.9 356.4 367.3 353.1 371.1C349.9 374.8 346.6 375.3 341.1 372.5C308.5 356.2 287.1 343.4 265.6 306.5C259.9 296.7 271.3 297.4 281.9 276.2C283.7 272.5 282.8 269.3 281.4 266.5C280 263.7 268.9 236.4 264.3 225.3C259.8 214.5 255.2 216 251.8 215.8C248.6 215.6 244.9 215.6 241.2 215.6C237.5 215.6 231.5 217 226.4 222.5C221.3 228.1 207 241.5 207 268.8C207 296.1 226.9 322.5 229.6 326.2C232.4 329.9 268.7 385.9 324.4 410C359.6 425.2 373.4 426.5 391 423.9C401.7 422.3 423.8 410.5 428.4 397.5C433 384.5 433 373.4 431.6 371.1C430.3 368.6 426.6 367.2 421.1 364.5z"/></svg>
+              <span>Message on WhatsApp</span>
+            </a>
+          </div>
+        </details>
 
         <span class="contact-sep" aria-hidden="true">|</span>
 
@@ -396,8 +500,8 @@
   </main>
 
   <!-- Pudgy mascots riding the tide -->
-  <div class="pudgy pudgy-left" aria-hidden="true"><img class="rider" src="pudgy.gif?v=1" alt="" width="188" height="188" /></div>
-  <div class="pudgy pudgy-right" aria-hidden="true"><img class="rider" src="pudgy.gif?v=1" alt="" width="188" height="188" /></div>
+  <div class="pudgy pudgy-a" aria-hidden="true"><img class="rider" src="pudgy.gif?v=1" alt="" width="188" height="188" /></div>
+  <div class="pudgy pudgy-b" aria-hidden="true"><img class="rider" src="pudgy.gif?v=1" alt="" width="188" height="188" /></div>
 
   <footer class="page-footer">&copy; 2026 AGRONOV Global LLC.</footer>
 
