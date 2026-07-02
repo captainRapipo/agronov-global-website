@@ -23,7 +23,7 @@
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link
-    href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@500;600;700;800&display=swap"
+    href="https://fonts.googleapis.com/css2?family=Pacifico&family=Plus+Jakarta+Sans:wght@500;600;700;800&display=swap"
     rel="stylesheet" />
 
   <style>
@@ -122,7 +122,7 @@
 
     .card {
       width: 100%;
-      max-width: 680px;
+      max-width: 760px;
       text-align: center;
       padding: 44px 48px 36px;
       border-radius: 30px;
@@ -151,13 +151,12 @@
     }
 
     .tagline {
-      font-family: "Plus Jakarta Sans", system-ui, sans-serif;
-      font-weight: 800;
-      font-size: clamp(1.55rem, 3.7vw, 2.25rem);
-      line-height: 1.18;
-      letter-spacing: -0.015em;
-      color: var(--ink);
-      margin-bottom: 32px;
+      font-family: "Pacifico", cursive;
+      font-weight: 400;
+      font-size: clamp(1.55rem, 3.4vw, 2.15rem);
+      line-height: 1.35;
+      color: #0a3a49;
+      margin: 6px 0 30px;
       white-space: nowrap;
     }
 
@@ -332,20 +331,27 @@
       will-change: transform;
     }
 
-    /* lanes: a = near (L→R), b = far (R→L), c = mid (L→R) */
+    /* four jet-skis flowing across the water at staggered depths */
     .pudgy-a { animation: cruise-lr 17s linear infinite; }
     .pudgy-b {
-      bottom: clamp(66px, 15vh, 140px);
-      width: clamp(84px, 10vw, 132px);
-      opacity: 0.92;
-      animation: cruise-rl 23s linear infinite;
+      bottom: clamp(120px, 22vh, 188px);
+      width: clamp(70px, 8vw, 106px);
+      opacity: 0.88;
+      animation: cruise-rl 25s linear infinite;
     }
     .pudgy-c {
-      bottom: clamp(30px, 8vh, 74px);
-      width: clamp(100px, 12vw, 152px);
-      opacity: 0.96;
-      animation: cruise-rl 20s linear infinite;
+      bottom: clamp(72px, 15vh, 138px);
+      width: clamp(88px, 10vw, 128px);
+      opacity: 0.93;
+      animation: cruise-rl 21s linear infinite;
       animation-delay: -9s;
+    }
+    .pudgy-d {
+      bottom: clamp(38px, 8vh, 82px);
+      width: clamp(104px, 12vw, 150px);
+      opacity: 0.97;
+      animation: cruise-lr 19s linear infinite;
+      animation-delay: -6s;
     }
 
     /* motion only — pure horizontal travel */
@@ -361,7 +367,8 @@
     /* facing — kept separate from motion so travel direction stays correct.
        The gif faces left by default, so mirror the right-bound riders. */
     .pudgy .face { display: block; }
-    .pudgy-a .face { transform: scaleX(-1); }
+    .pudgy-a .face,
+    .pudgy-d .face { transform: scaleX(-1); }   /* right-bound riders face right */
 
     .pudgy .rider {
       display: block;
@@ -373,6 +380,7 @@
 
     .pudgy-b .rider { animation-delay: -1.8s; }
     .pudgy-c .rider { animation-delay: -3s; }
+    .pudgy-d .rider { animation-delay: -2.4s; }
 
     @keyframes bob {
       0%, 100% { transform: translateY(0) rotate(-2deg); }
@@ -396,9 +404,10 @@
       .tagline { white-space: normal; }
       .contact-sep { display: none; }
       .contact { flex-direction: column; gap: 15px; }
-      .pudgy { width: clamp(78px, 24vw, 120px); }
-      .pudgy-b { bottom: clamp(48px, 13vh, 104px); width: clamp(58px, 17vw, 92px); }
-      .pudgy-c { bottom: clamp(26px, 7vh, 60px); width: clamp(70px, 20vw, 108px); }
+      .pudgy { width: clamp(72px, 22vw, 112px); }
+      .pudgy-b { bottom: clamp(120px, 26vh, 220px); width: clamp(48px, 13vw, 74px); }
+      .pudgy-c { bottom: clamp(70px, 16vh, 140px); width: clamp(60px, 16vw, 92px); }
+      .pudgy-d { bottom: clamp(36px, 9vh, 80px); width: clamp(66px, 18vw, 100px); }
     }
 
     @media (prefers-reduced-motion: reduce) {
@@ -411,16 +420,10 @@
       }
       .pudgy,
       .pudgy .rider { animation: none !important; }
-      .pudgy-a { left: clamp(6px, 3vw, 54px); transform: none !important; }
-      .pudgy-b {
-        left: auto;
-        right: clamp(6px, 3vw, 54px);
-        bottom: clamp(4px, 2.5vh, 30px);
-        width: clamp(118px, 14vw, 178px);
-        opacity: 1;
-        transform: none !important;
-      }
-      .pudgy-c { left: 50%; transform: translateX(-50%) !important; }
+      .pudgy-a { left: clamp(6px, 3vw, 48px); transform: none !important; }
+      .pudgy-b { left: auto; right: clamp(6px, 3vw, 48px); transform: none !important; }
+      .pudgy-c { left: 33%; transform: translateX(-50%) !important; }
+      .pudgy-d { left: 67%; transform: translateX(-50%) !important; }
       @media (max-width: 720px) {
         .logo-badge { transform: translateX(50%) !important; }
       }
@@ -516,6 +519,7 @@
   <div class="pudgy pudgy-a" aria-hidden="true"><span class="face"><img class="rider" src="pudgy.gif?v=1" alt="" width="188" height="188" /></span></div>
   <div class="pudgy pudgy-b" aria-hidden="true"><span class="face"><img class="rider" src="pudgy.gif?v=1" alt="" width="188" height="188" /></span></div>
   <div class="pudgy pudgy-c" aria-hidden="true"><span class="face"><img class="rider" src="pudgy.gif?v=1" alt="" width="188" height="188" /></span></div>
+  <div class="pudgy pudgy-d" aria-hidden="true"><span class="face"><img class="rider" src="pudgy.gif?v=1" alt="" width="188" height="188" /></span></div>
 
   <footer class="page-footer">&copy; 2026 AGRONOV Global LLC.</footer>
 
