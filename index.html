@@ -23,7 +23,7 @@
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link
-    href="https://fonts.googleapis.com/css2?family=Pacifico&family=Plus+Jakarta+Sans:wght@500;600;700;800&display=swap"
+    href="https://fonts.googleapis.com/css2?family=Poppins:wght@500;600;700&family=Plus+Jakarta+Sans:wght@500;600;700;800&display=swap"
     rel="stylesheet" />
 
   <style>
@@ -151,12 +151,13 @@
     }
 
     .tagline {
-      font-family: "Pacifico", cursive;
-      font-weight: 400;
-      font-size: clamp(1.55rem, 3.4vw, 2.15rem);
-      line-height: 1.35;
+      font-family: "Poppins", system-ui, sans-serif;
+      font-weight: 600;
+      font-size: clamp(1.45rem, 3.3vw, 2rem);
+      line-height: 1.25;
+      letter-spacing: -0.005em;
       color: #0a3a49;
-      margin: 6px 0 30px;
+      margin: 4px 0 30px;
       white-space: nowrap;
     }
 
@@ -367,8 +368,10 @@
     /* facing — kept separate from motion so travel direction stays correct.
        The gif faces left by default, so mirror the right-bound riders. */
     .pudgy .face { display: block; }
-    .pudgy-a .face,
-    .pudgy-d .face { transform: scaleX(-1); }   /* right-bound riders face right */
+    /* Sprite's default nose/hull points right, so mirror the LEFT-bound
+       lanes to make the jet-ski lead its travel direction. */
+    .pudgy-b .face,
+    .pudgy-c .face { transform: scaleX(-1); }
 
     .pudgy .rider {
       display: block;
