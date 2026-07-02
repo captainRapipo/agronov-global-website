@@ -14,10 +14,10 @@
   <meta property="og:url" content="https://agronovglobal.com/" />
 
   <!-- Favicons -->
-  <link rel="icon" type="image/svg+xml" href="favicon.svg?v=3" />
-  <link rel="icon" type="image/png" sizes="32x32" href="favicon-32x32.png?v=3" />
-  <link rel="icon" type="image/png" sizes="16x16" href="favicon-16x16.png?v=3" />
-  <link rel="apple-touch-icon" sizes="180x180" href="apple-touch-icon.png?v=3" />
+  <link rel="icon" type="image/svg+xml" href="favicon.svg?v=4" />
+  <link rel="icon" type="image/png" sizes="32x32" href="favicon-32x32.png?v=4" />
+  <link rel="icon" type="image/png" sizes="16x16" href="favicon-16x16.png?v=4" />
+  <link rel="apple-touch-icon" sizes="180x180" href="apple-touch-icon.png?v=4" />
 
   <!-- Typography -->
   <link rel="preconnect" href="https://fonts.googleapis.com" />
@@ -333,25 +333,37 @@
       will-change: transform;
     }
 
-    /* near lane — travels left → right, faces right */
+    /* lanes: a = near (L→R), b = far (R→L), c = mid (L→R) */
     .pudgy-a { animation: cruise-lr 17s linear infinite; }
-    /* far lane — travels right → left, faces left, smaller for depth */
     .pudgy-b {
       bottom: clamp(66px, 15vh, 140px);
       width: clamp(84px, 10vw, 132px);
       opacity: 0.92;
       animation: cruise-rl 23s linear infinite;
     }
+    .pudgy-c {
+      bottom: clamp(30px, 8vh, 74px);
+      width: clamp(100px, 12vw, 152px);
+      opacity: 0.96;
+      animation: cruise-lr 20s linear infinite;
+      animation-delay: -9s;
+    }
 
+    /* motion only — pure horizontal travel */
     @keyframes cruise-lr {
-      from { transform: translateX(-240px) scaleX(-1); }
-      to { transform: translateX(calc(100vw + 90px)) scaleX(-1); }
+      from { transform: translateX(-260px); }
+      to { transform: translateX(calc(100vw + 110px)); }
+    }
+    @keyframes cruise-rl {
+      from { transform: translateX(calc(100vw + 110px)); }
+      to { transform: translateX(-260px); }
     }
 
-    @keyframes cruise-rl {
-      from { transform: translateX(calc(100vw + 90px)); }
-      to { transform: translateX(-240px); }
-    }
+    /* facing — kept separate from motion so travel direction stays correct.
+       The gif faces left by default, so mirror the right-bound riders. */
+    .pudgy .face { display: block; }
+    .pudgy-a .face,
+    .pudgy-c .face { transform: scaleX(-1); }
 
     .pudgy .rider {
       display: block;
@@ -362,6 +374,7 @@
     }
 
     .pudgy-b .rider { animation-delay: -1.8s; }
+    .pudgy-c .rider { animation-delay: -3s; }
 
     @keyframes bob {
       0%, 100% { transform: translateY(0) rotate(-2deg); }
@@ -387,6 +400,7 @@
       .contact { flex-direction: column; gap: 15px; }
       .pudgy { width: clamp(78px, 24vw, 120px); }
       .pudgy-b { bottom: clamp(48px, 13vh, 104px); width: clamp(58px, 17vw, 92px); }
+      .pudgy-c { bottom: clamp(26px, 7vh, 60px); width: clamp(70px, 20vw, 108px); }
     }
 
     @media (prefers-reduced-motion: reduce) {
@@ -399,7 +413,7 @@
       }
       .pudgy,
       .pudgy .rider { animation: none !important; }
-      .pudgy-a { left: clamp(6px, 3vw, 54px); transform: scaleX(-1) !important; }
+      .pudgy-a { left: clamp(6px, 3vw, 54px); transform: none !important; }
       .pudgy-b {
         left: auto;
         right: clamp(6px, 3vw, 54px);
@@ -408,6 +422,7 @@
         opacity: 1;
         transform: none !important;
       }
+      .pudgy-c { left: 50%; transform: translateX(-50%) !important; }
       @media (max-width: 720px) {
         .logo-badge { transform: translateX(50%) !important; }
       }
@@ -500,8 +515,9 @@
   </main>
 
   <!-- Pudgy mascots riding the tide -->
-  <div class="pudgy pudgy-a" aria-hidden="true"><img class="rider" src="pudgy.gif?v=1" alt="" width="188" height="188" /></div>
-  <div class="pudgy pudgy-b" aria-hidden="true"><img class="rider" src="pudgy.gif?v=1" alt="" width="188" height="188" /></div>
+  <div class="pudgy pudgy-a" aria-hidden="true"><span class="face"><img class="rider" src="pudgy.gif?v=1" alt="" width="188" height="188" /></span></div>
+  <div class="pudgy pudgy-b" aria-hidden="true"><span class="face"><img class="rider" src="pudgy.gif?v=1" alt="" width="188" height="188" /></span></div>
+  <div class="pudgy pudgy-c" aria-hidden="true"><span class="face"><img class="rider" src="pudgy.gif?v=1" alt="" width="188" height="188" /></span></div>
 
   <footer class="page-footer">&copy; 2026 AGRONOV Global LLC.</footer>
 
