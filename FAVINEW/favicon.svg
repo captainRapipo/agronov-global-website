@@ -1,19 +1,42 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" role="img" aria-label="AGRONOV">
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" width="512" height="512" role="img" aria-label="AGRONOV GLOBAL globe">
   <defs>
-    <linearGradient id="sky" x1="0" y1="0" x2="0" y2="1">
-      <stop offset="0" stop-color="#4f74d6" />
-      <stop offset="0.36" stop-color="#9a4fd0" />
-      <stop offset="0.68" stop-color="#ff6f91" />
-      <stop offset="1" stop-color="#ffb347" />
-    </linearGradient>
-    <clipPath id="round"><rect width="64" height="64" rx="15" /></clipPath>
-  </defs>
-  <g clip-path="url(#round)">
-    <rect width="64" height="64" fill="url(#sky)" />
-    <circle cx="32" cy="29" r="18" fill="#ffffff" opacity="0.16" />
-    <text x="31.5" y="35" text-anchor="middle" dominant-baseline="central"
-      font-family="'Plus Jakarta Sans','Segoe UI',Arial,sans-serif" font-weight="800"
-      font-size="30" letter-spacing="-1.5" fill="#ffffff">AG</text>
-    <circle cx="50" cy="43" r="3.6" fill="#ff9900" stroke="#ffffff" stroke-width="1.2" />
-  </g>
+    <radialGradient id="sky_mk" cx="0.5" cy="0.5" r="0.62">
+      <stop offset="0" stop-color="#ff6f91"/>
+      <stop offset="1" stop-color="#9a4fd0"/>
+    </radialGradient>
+    <linearGradient id="sky_lin_mk" x1="0" y1="0" x2="0" y2="1">
+  <stop offset="0" stop-color="#4f74d6"/>
+  <stop offset="0.36" stop-color="#9a4fd0"/>
+  <stop offset="0.68" stop-color="#ff6f91"/>
+  <stop offset="1" stop-color="#ffb347"/></linearGradient>
+    <radialGradient id="hi_mk" cx="0.34" cy="0.28" r="0.7">
+      <stop offset="0" stop-color="#ffffff" stop-opacity="0.45"/>
+      <stop offset="0.45" stop-color="#ffffff" stop-opacity="0.06"/>
+      <stop offset="1" stop-color="#ffffff" stop-opacity="0"/>
+    </radialGradient>
+    <radialGradient id="sh_mk" cx="0.5" cy="0.5" r="0.5">
+      <stop offset="0.72" stop-color="#000000" stop-opacity="0"/>
+      <stop offset="1" stop-color="#1a0a2e" stop-opacity="0.45"/>
+    </radialGradient>
+    <filter id="glow_mk" x="-40%" y="-40%" width="180%" height="180%">
+      <feGaussianBlur stdDeviation="20.2"/>
+    </filter>
+    <clipPath id="clip_mk"><circle cx="256" cy="256" r="224"/></clipPath></defs>
+  
+    <circle cx="256" cy="256" r="237.4" fill="url(#sky_lin_mk)" opacity="0.35" filter="url(#glow_mk)"/>
+    <circle cx="256" cy="256" r="224" fill="url(#sky_lin_mk)"/>
+    <g clip-path="url(#clip_mk)">
+    <line x1="32" y1="88" x2="480" y2="88" stroke="#ffffff" stroke-width="1.8" stroke-opacity="0.42"/>
+    <line x1="32" y1="161.92000000000002" x2="480" y2="161.92000000000002" stroke="#ffffff" stroke-width="1.8" stroke-opacity="0.42"/>
+    <line x1="32" y1="256" x2="480" y2="256" stroke="#ffffff" stroke-width="2.4" stroke-opacity="0.72"/>
+    <line x1="32" y1="350.08" x2="480" y2="350.08" stroke="#ffffff" stroke-width="1.8" stroke-opacity="0.42"/>
+    <line x1="32" y1="424" x2="480" y2="424" stroke="#ffffff" stroke-width="1.8" stroke-opacity="0.42"/>
+    <ellipse cx="256" cy="256" rx="94.08" ry="224" fill="none" stroke="#ffffff" stroke-width="1.8" stroke-opacity="0.42"/>
+    <ellipse cx="256" cy="256" rx="168.00" ry="224" fill="none" stroke="#ffffff" stroke-width="1.8" stroke-opacity="0.42"/>
+    <line x1="256" y1="32" x2="256" y2="480" stroke="#ffffff" stroke-width="2.4" stroke-opacity="0.72"/>
+    <circle cx="256" cy="256" r="224" fill="url(#hi_mk)"/>
+    <circle cx="256" cy="256" r="224" fill="url(#sh_mk)"/>
+    </g>
+    <circle cx="256" cy="256" r="224" fill="none" stroke="#ffffff" stroke-width="4.03" stroke-opacity="0.85"/>
+    <circle cx="337.6" cy="143.6" r="24.6" fill="#ff9900" stroke="#ffffff" stroke-width="7.88"/>
 </svg>
