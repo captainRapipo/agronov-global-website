@@ -1,0 +1,433 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Accessibility Statement — AGRONOV Global</title>
+
+  <meta name="description" content="How AGRONOV Global builds and maintains an accessible website, and how to reach us if something is not working for you." />
+  <meta name="theme-color" content="#ffffff" />
+  <meta name="robots" content="index, follow" />
+
+  <link rel="icon" type="image/svg+xml" href="favicon.svg?v=5" />
+  <link rel="icon" type="image/png" sizes="32x32" href="favicon-32x32.png?v=5" />
+  <link rel="icon" type="image/png" sizes="16x16" href="favicon-16x16.png?v=5" />
+  <link rel="apple-touch-icon" sizes="180x180" href="apple-touch-icon.png?v=5" />
+
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Sora:wght@300;400;500;600&display=swap"
+    rel="stylesheet" />
+
+  <!-- applies the visitor's accessibility choices before the first paint -->
+  <script src="a11y.js"></script>
+
+  <style>
+    *,
+    *::before,
+    *::after {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    :root {
+      --paper: #ffffff;
+      --ink: #0b0c0f;
+      --ink-70: #474c57;
+      --ink-45: #7c8290;
+      --rule: rgba(11, 12, 15, 0.11);
+
+      --t1: #4f74d6;
+      --t2: #a24bd0;
+      --t3: #ff6f91;
+      --t4: #ffb347;
+      --amz: #ef8e26;
+
+      --ease: cubic-bezier(0.16, 1, 0.3, 1);
+    }
+
+    html {
+      -webkit-text-size-adjust: 100%;
+      font-size: calc(100% * var(--a11y-scale, 1));
+    }
+
+    body {
+      min-height: 100dvh;
+      background: var(--paper);
+      color: var(--ink);
+      font-family: "Sora", system-ui, -apple-system, "Segoe UI", sans-serif;
+      font-weight: 400;
+      line-height: 1.68;
+      -webkit-font-smoothing: antialiased;
+      -moz-osx-font-smoothing: grayscale;
+      display: flex;
+      flex-direction: column;
+    }
+
+    .topline {
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      height: 3px;
+      z-index: 10;
+      background: linear-gradient(90deg, var(--t1), var(--t2) 34%, var(--t3) 66%, var(--t4));
+    }
+
+    .skip {
+      position: absolute;
+      left: 12px;
+      top: -60px;
+      z-index: 60;
+      padding: 0.7rem 1.1rem;
+      border-radius: 10px;
+      background: var(--ink);
+      color: #fff;
+      font-size: 0.8rem;
+      font-weight: 600;
+      letter-spacing: 0.06em;
+      text-decoration: none;
+      transition: top 0.2s ease;
+    }
+
+    .skip:focus { top: 12px; }
+
+    .brand {
+      padding: clamp(22px, 3.4vh, 34px) clamp(20px, 4vw, 42px) 0;
+    }
+
+    .brand img {
+      display: block;
+      width: clamp(178px, 22vw, 260px);
+      height: auto;
+    }
+
+    .doc {
+      flex: 1;
+      width: min(760px, 100%);
+      margin: 0 auto;
+      padding: clamp(34px, 7vh, 72px) clamp(20px, 5vw, 32px) clamp(40px, 8vh, 90px);
+    }
+
+    .eyebrow {
+      display: block;
+      margin-bottom: 12px;
+      font-size: 0.66rem;
+      font-weight: 600;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--ink-45);
+    }
+
+    h1 {
+      font-size: clamp(1.85rem, 5vw, 2.6rem);
+      font-weight: 600;
+      line-height: 1.16;
+      letter-spacing: -0.02em;
+    }
+
+    .lede {
+      margin-top: 14px;
+      font-size: 1.02rem;
+      color: var(--ink-70);
+    }
+
+    .divider {
+      height: 1px;
+      margin: clamp(28px, 5vh, 46px) 0;
+      background: linear-gradient(90deg, var(--rule), transparent);
+    }
+
+    h2 {
+      margin: clamp(26px, 4.5vh, 40px) 0 10px;
+      font-size: 1.06rem;
+      font-weight: 600;
+      letter-spacing: -0.005em;
+    }
+
+    .doc > h2:first-of-type { margin-top: 0; }
+
+    p, li {
+      font-size: 0.945rem;
+      color: var(--ink-70);
+    }
+
+    p + p { margin-top: 0.85em; }
+
+    ul {
+      margin: 0.6em 0 0;
+      padding-inline-start: 1.15em;
+    }
+
+    li { margin-bottom: 0.35em; }
+
+    li::marker { color: var(--ink-45); }
+
+    strong {
+      color: var(--ink);
+      font-weight: 500;
+    }
+
+    a {
+      color: var(--ink);
+      text-decoration: underline;
+      text-underline-offset: 3px;
+      text-decoration-color: rgba(11, 12, 15, 0.3);
+      transition: text-decoration-color 0.25s ease, color 0.25s ease;
+    }
+
+    a:hover,
+    a:focus-visible { text-decoration-color: var(--amz); }
+
+    .card {
+      margin-top: 16px;
+      padding: clamp(16px, 3vw, 22px);
+      border: 1px solid var(--rule);
+      border-radius: 16px;
+      background: rgba(255, 255, 255, 0.6);
+    }
+
+    .card dl {
+      display: grid;
+      grid-template-columns: auto 1fr;
+      gap: 8px 18px;
+      font-size: 0.93rem;
+    }
+
+    .card dt {
+      color: var(--ink-45);
+      font-size: 0.78rem;
+      font-weight: 600;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      padding-top: 3px;
+    }
+
+    .card dd { color: var(--ink); }
+
+    /* the Hebrew half of the statement */
+    .he {
+      direction: rtl;
+      text-align: right;
+    }
+
+    .he ul { padding-inline-start: 0; padding-inline-end: 1.15em; }
+
+    .he .divider { background: linear-gradient(270deg, var(--rule), transparent); }
+
+    .he .card dl { direction: rtl; }
+
+    .back {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.6rem;
+      margin-top: clamp(34px, 6vh, 56px);
+      padding: 0.9rem 1.6rem;
+      border-radius: 999px;
+      background: var(--ink);
+      color: #fff;
+      font-size: 0.74rem;
+      font-weight: 600;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      text-decoration: none;
+      transition: transform 0.35s var(--ease);
+    }
+
+    .back:hover,
+    .back:focus-visible { transform: translateY(-2px); }
+
+    .updated {
+      margin-top: clamp(30px, 5vh, 44px);
+      font-size: 0.78rem;
+      color: var(--ink-45);
+    }
+
+    :focus-visible {
+      outline: 2px solid var(--t2);
+      outline-offset: 4px;
+      border-radius: 4px;
+    }
+
+    [data-hc="on"] {
+      --ink: #000000;
+      --ink-70: #000000;
+      --ink-45: #1a1a1a;
+      --rule: rgba(0, 0, 0, 0.55);
+      --amz: #8a4b00;
+    }
+
+    [data-hc="on"] .topline { display: none; }
+    [data-hc="on"] a { text-decoration-color: #000; }
+
+    [data-links="on"] a { text-decoration-thickness: 2px; }
+
+    [data-motion="off"] *,
+    [data-motion="off"] *::before,
+    [data-motion="off"] *::after {
+      animation-duration: 0.01ms !important;
+      transition-duration: 0.01ms !important;
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      *, *::before, *::after {
+        animation-duration: 0.01ms !important;
+        transition-duration: 0.01ms !important;
+      }
+    }
+  </style>
+</head>
+
+<body>
+  <a class="skip" href="#doc">Skip to main content</a>
+  <div class="topline" aria-hidden="true"></div>
+
+  <header class="brand">
+    <a href="/" aria-label="AGRONOV Global — home">
+      <img src="AGRONOV-logo-tropical-4K.png" alt="AGRONOV Global" width="3840" height="520" />
+    </a>
+  </header>
+
+  <main class="doc" id="doc">
+    <span class="eyebrow">AGRONOV Global LLC</span>
+    <h1>Accessibility Statement</h1>
+    <p class="lede">
+      We want everyone to be able to use agronovglobal.com — including people who browse with a
+      keyboard, a screen reader, magnification, or reduced motion. This page explains what we have
+      done, where we know we fall short, and how to tell us when something does not work.
+    </p>
+
+    <div class="divider" aria-hidden="true"></div>
+
+    <h2>The standards we work to</h2>
+    <p>
+      This site is built to conform to the <strong>Web Content Accessibility Guidelines (WCAG) 2.1,
+      Level AA</strong>. That single standard is what both of the frameworks below point to:
+    </p>
+    <ul>
+      <li>
+        <strong>United States</strong> — the Americans with Disabilities Act (ADA) and, where it
+        applies, Section 508 of the Rehabilitation Act.
+      </li>
+      <li>
+        <strong>Israel</strong> — Israeli Standard <span lang="he">ת"י</span> 5568, and the Equal
+        Rights for Persons with Disabilities Regulations (Service Accessibility), 5773–2013.
+      </li>
+    </ul>
+
+    <h2>What we have done</h2>
+    <ul>
+      <li>Every page can be operated with a keyboard alone, in a logical order, with a visible focus ring on each stop.</li>
+      <li>A “skip to main content” link is the first thing a keyboard or screen reader reaches.</li>
+      <li>Headings, landmarks, labels and link text are written so a screen reader can navigate the page structurally.</li>
+      <li>Images that carry meaning have text alternatives; purely decorative graphics are hidden from assistive technology.</li>
+      <li>Text and interface colours are checked against WCAG's 4.5:1 contrast minimum.</li>
+      <li>The page respects the operating system's <strong>reduce motion</strong> setting, and animation can also be stopped from the accessibility button.</li>
+      <li>Layouts reflow down to 320&nbsp;px and tolerate text enlarged to 200% without loss of content.</li>
+      <li>An accessibility button in the corner of every page offers high contrast, larger text, stopped animation and highlighted links. Your choice is remembered in your browser.</li>
+    </ul>
+
+    <h2>Known limitations</h2>
+    <p>
+      The warehouse illustration on the home page is decorative and is not announced by screen
+      readers; every way of reaching us is also a labelled text link. Some third-party destinations we link to
+      (Amazon, Google Maps) are outside our control, and we cannot guarantee their
+      accessibility.
+    </p>
+
+    <h2>Tell us if something does not work</h2>
+    <p>
+      If you run into a barrier on this site, please contact us and describe what you were trying to
+      do. We treat accessibility reports as a priority and aim to respond within a few business days.
+    </p>
+
+    <div class="card">
+      <dl>
+        <dt>Contact</dt>
+        <dd>Refael &mdash; Accessibility Coordinator</dd>
+        <dt>Email</dt>
+        <dd><a href="mailto:info@agronovglobal.com">info@agronovglobal.com</a></dd>
+        <dt>Phone</dt>
+        <dd><a href="tel:+17027276966">+1 (702) 727-6966</a></dd>
+        <dt>Location</dt>
+        <dd>St. Petersburg, Florida, USA</dd>
+      </dl>
+    </div>
+
+    <div class="divider" aria-hidden="true"></div>
+
+    <!-- ─────────────────────────────  Hebrew  ───────────────────────────── -->
+    <section class="he" lang="he" dir="rtl">
+      <span class="eyebrow">AGRONOV Global LLC</span>
+      <h1>הצהרת נגישות</h1>
+      <p class="lede">
+        אנחנו רוצים שכל אחד יוכל להשתמש באתר agronovglobal.com — כולל גולשים המשתמשים במקלדת בלבד,
+        בקורא מסך, בהגדלת תצוגה או בהפחתת אנימציות. בעמוד זה מפורט מה עשינו, היכן אנחנו יודעים
+        שקיימות מגבלות, וכיצד ליצור איתנו קשר כאשר משהו אינו עובד.
+      </p>
+
+      <h2>התקנים שלפיהם אנו פועלים</h2>
+      <p>
+        האתר נבנה כך שיעמוד בהנחיות <strong lang="en">WCAG 2.1</strong> ברמה <strong lang="en">AA</strong>.
+        זהו התקן שאליו מפנות שתי המסגרות הבאות:
+      </p>
+      <ul>
+        <li><strong>ישראל</strong> — תקן ישראלי ת"י 5568, ותקנות שוויון זכויות לאנשים עם מוגבלות (התאמות נגישות לשירות), התשע"ג–2013.</li>
+        <li><strong>ארצות הברית</strong> — חוק <span lang="en">ADA</span>, וכן סעיף 508 לחוק השיקום במקומות שבהם הוא חל.</li>
+      </ul>
+
+      <h2>מה עשינו</h2>
+      <ul>
+        <li>ניתן להפעיל את כל האתר באמצעות מקלדת בלבד, בסדר הגיוני, עם סימון מיקוד ברור בכל תחנה.</li>
+        <li>קישור "דלג לתוכן הראשי" הוא הפריט הראשון שאליו מגיעים במקלדת או בקורא מסך.</li>
+        <li>כותרות, אזורי ניווט, תוויות וטקסטים של קישורים נכתבו כך שקורא מסך יוכל לנווט לפי מבנה העמוד.</li>
+        <li>לתמונות בעלות משמעות קיים טקסט חלופי; גרפיקה דקורטיבית מוסתרת מטכנולוגיה מסייעת.</li>
+        <li>ניגודיות הצבעים של טקסט ורכיבי ממשק נבדקה מול הדרישה של 4.5:1.</li>
+        <li>האתר מכבד את הגדרת <strong lang="en">reduce motion</strong> של מערכת ההפעלה, וניתן גם לעצור אנימציות מתוך תפריט הנגישות.</li>
+        <li>הפריסה נשמרת עד לרוחב 320 פיקסלים ותומכת בהגדלת טקסט עד 200% ללא אובדן תוכן.</li>
+        <li>כפתור נגישות בפינת כל עמוד מאפשר ניגודיות גבוהה, הגדלת טקסט, עצירת אנימציות והדגשת קישורים. הבחירה נשמרת בדפדפן שלך.</li>
+      </ul>
+
+      <h2>מגבלות ידועות</h2>
+      <p>
+        איור המחסן בעמוד הבית הוא דקורטיבי ואינו מוקרא על ידי קוראי מסך; כל דרכי ההתקשרות
+        איתנו זמינות גם כקישורים טקסטואליים מתויגים. חלק מהיעדים החיצוניים שאליהם אנו מקשרים (אמזון, גוגל מפות) אינם
+        בשליטתנו, ואיננו יכולים להתחייב לנגישותם.
+      </p>
+
+      <h2>נתקלתם בבעיה? ספרו לנו</h2>
+      <p>
+        אם נתקלתם במחסום כלשהו באתר, אנא צרו איתנו קשר ותארו מה ניסיתם לעשות. אנו מתייחסים לפניות
+        בנושא נגישות בעדיפות גבוהה ומשתדלים להשיב תוך מספר ימי עסקים.
+      </p>
+
+      <div class="card">
+        <dl>
+          <dt>איש קשר</dt>
+          <dd>רפאל &mdash; רכז הנגישות</dd>
+          <dt>דוא"ל</dt>
+          <dd><a href="mailto:info@agronovglobal.com" lang="en">info@agronovglobal.com</a></dd>
+          <dt>טלפון</dt>
+          <dd><a href="tel:+17027276966" lang="en" dir="ltr">+1 (702) 727-6966</a></dd>
+          <dt>כתובת</dt>
+          <dd>סנט פיטרסבורג, פלורידה, ארצות הברית</dd>
+        </dl>
+      </div>
+    </section>
+
+    <p class="updated">Last reviewed: 29 August 2026 · <span lang="he" dir="rtl">עודכן לאחרונה: 29 באוגוסט 2026</span></p>
+
+    <a class="back" href="/">
+      <svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2.4"
+        stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+        <path d="M15 18l-6-6 6-6" />
+      </svg>
+      <span>Back to AGRONOV Global</span>
+    </a>
+  </main>
+
+</body>
+
+</html>
